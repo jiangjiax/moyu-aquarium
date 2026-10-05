@@ -1,0 +1,36 @@
+; Engine configuration file.
+; 摸鱼水族馆 - Godot 4.7
+
+config_version=5
+
+[application]
+
+config/name="摸鱼水族馆"
+config/description="挂在电脑桌面上的放置水族馆"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[display]
+
+; 挂件形态尺寸
+window/size/viewport_width=640
+window/size/viewport_height=160
+window/size/borderless=true
+window/size/transparent=true
+window/always_on_top=true
+; 逐像素透明：窗口真正透出桌面，而不是画一层假透明
+window/per_pixel_transparency/allowed=true
+window/size/initial_position_type=2
+window/size/window_width_override=640
+window/size/window_height_override=160
+
+[rendering]
+
+; 透明窗口在 GL Compatibility 后端下最稳，也更省电
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 0)
+anti_aliasing/quality/msaa_2d=0
+; 界面也是像素画：图标、像素字放大时一律取最近邻，不插值
+textures/canvas_textures/default_texture_filter=0

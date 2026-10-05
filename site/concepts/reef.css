@@ -1,0 +1,483 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   reef.css · 概念页共用的地基 + 五套版式
+
+   共用部分：像素刻度（4px 格 / 12px 字格）、单一强调色（珊瑚礁水面）、
+             泡泡层、watercolor 提示、像素字分工（界面用像素字，正文用系统字）。
+   五套版式：A 沉底站 / B 展缸格 / C 玻璃长廊 / D 剖面图 / E 熄灯的房间。
+             每套一个 body class，互不干扰。
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'FusionPixel';
+  src: url('../assets/fonts/fusion-pixel-12px-zh_hans.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --deep:    #070a11;
+  --deep-2:  #0a0f18;
+  --surf:    #0f1622;
+  --glass:   #081c26;
+  --line:    rgba(120, 200, 214, 0.18);
+  --line-2:  rgba(120, 200, 214, 0.08);
+  --ink:     #e8f3f6;
+  --ink-2:   #9db2bd;
+  --ink-3:   #67808f;
+  --acc:     #57c8d4;
+  --acc-2:   #9ff0d8;
+  --acc-ink: #04222a;
+  --nav-h:   64px;
+
+  --f-disp: 'FusionPixel', 'PingFang SC', system-ui, sans-serif;
+  --f-body: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --f-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--deep);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3 { font-family: var(--f-disp); font-weight: 400; margin: 0; line-height: 1.3; }
+h1 { font-size: clamp(32px, 4.4vw, 48px); }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 20px; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+.px { font-family: 'FusionPixel', var(--f-mono); -webkit-font-smoothing: none; }
+code { font-family: var(--f-mono); font-size: 0.85em; color: var(--acc); background: rgba(87,200,212,0.12); padding: 2px 6px; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 4px; }
+
+.wrap { max-width: 1240px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); position: relative; z-index: 2; }
+.kicker { font-family: 'FusionPixel', var(--f-mono); font-size: 12px; color: var(--acc); margin-bottom: 16px; }
+.lede { color: var(--ink-2); max-width: 46ch; }
+
+/* 页面底层那张 4px 网点，水在玻璃上晃出来的抖动 */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--line-2) 1px, transparent 1px) 0 0 / 100% 4px,
+    linear-gradient(0deg, var(--line-2) 1px, transparent 1px) 0 0 / 4px 100%;
+  opacity: 0.45;
+}
+
+/* ═══════════════════════════════════════ 泡泡层 ═══════════════════════════════════════ */
+#bubbles { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+
+/* ═══════════════════════════════════════ watercolor 提示 ═══════════════════════════════════════
+   戳破泡泡的那一下：三层水彩叠色洇开，字浮在上面，然后一起淡掉。 */
+.tip {
+  position: fixed; left: var(--x); top: var(--y); z-index: 70;
+  pointer-events: none; transform: translate(-50%, -50%);
+  width: 300px; animation: tipLife 3.4s linear forwards;
+}
+.tip-blob {
+  position: absolute; left: 50%; top: 50%; width: 260px; height: 200px;
+  margin: -100px 0 0 -130px;
+  background:
+    radial-gradient(46% 50% at 36% 42%, rgba(64, 214, 228, 0.95), rgba(64, 214, 228, 0.35) 55%, transparent 74%),
+    radial-gradient(40% 44% at 66% 60%, rgba(120, 255, 214, 0.80), rgba(120, 255, 214, 0.28) 55%, transparent 74%),
+    radial-gradient(36% 38% at 54% 28%, rgba(255, 214, 138, 0.70), rgba(255, 214, 138, 0.22) 52%, transparent 72%),
+    radial-gradient(30% 32% at 30% 66%, rgba(150, 130, 255, 0.45), transparent 70%);
+  filter: blur(12px);
+  mix-blend-mode: screen;
+  animation: bloom 0.65s var(--ease) both;
+}
+.tip-txt {
+  position: relative; display: block; text-align: center;
+  font-size: 12px; line-height: 1.7; color: var(--ink);
+  padding: 12px 16px; margin: 26px 24px 0;
+  background: rgba(7, 14, 20, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(87, 200, 212, 0.34);
+  animation: tipIn 0.4s steps(3, end) 0.18s both;
+}
+@keyframes bloom {
+  0%   { transform: scale(0.35); opacity: 0; filter: blur(22px); }
+  60%  { transform: scale(1.12); opacity: 1; filter: blur(8px); }
+  100% { transform: scale(1); opacity: 0.9; filter: blur(12px); }
+}
+@keyframes tipIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes tipLife {
+  0%, 74% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% - 12px)); }
+}
+
+/* ═══════════════════════════════════════ 缸 ═══════════════════════════════════════ */
+.tank-shell { position: relative; background: var(--glass); border: 1px solid var(--line); overflow: hidden; }
+.tank { display: block; width: 100%; height: 100%; image-rendering: pixelated; cursor: crosshair; }
+.tank-shell::before, .tank-shell::after {
+  content: ''; position: absolute; width: 12px; height: 12px; z-index: 3;
+  border: 1px solid var(--acc); opacity: 0.5; pointer-events: none;
+}
+.tank-shell::before { left: -1px; top: -1px; border-right: 0; border-bottom: 0; }
+.tank-shell::after { right: -1px; bottom: -1px; border-left: 0; border-top: 0; }
+.tank-shell.flush::before, .tank-shell.flush::after { display: none; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 44px; padding: 0 20px; border: 1px solid var(--line);
+  font-family: var(--f-disp); font-size: 20px; color: var(--ink);
+  background: var(--surf); cursor: pointer;
+  transition: transform 0.12s steps(2, end), background 0.16s steps(3, end);
+}
+.btn:hover { border-color: var(--acc); color: var(--acc); }
+.btn:active { transform: translateY(4px); }
+.btn-pri { background: var(--acc); color: var(--acc-ink); border-color: var(--acc); }
+.btn-pri:hover { background: color-mix(in srgb, var(--acc) 84%, var(--ink)); color: var(--acc-ink); }
+
+/* 像素栅格尺：任何页面都能放一条 */
+.ruler { display: flex; gap: 4px; height: 24px; align-items: flex-end; }
+.ruler span { flex: 1; height: 8px; background: rgba(87, 200, 212, 0.18); box-shadow: inset 0 0 0 1px rgba(87, 200, 212, 0.34); }
+.ruler span:nth-child(4n) { height: 16px; }
+.ruler span:nth-child(4n+1) { height: 24px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   A 沉底站 Sandbar
+   整页一缸水，文字坐在沙台上，导航是缸底那条沙缘。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.c-a { padding-bottom: 96px; }
+.c-a .reef-bg { position: fixed; inset: 0; z-index: 1; }
+.c-a .reef-bg .tank-shell { position: absolute; inset: 0; border: 0; }
+/* 文字要压在水上，罩一层从上到下变深的薄纱 */
+.c-a .reef-bg::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(7,10,17,0.45), rgba(7,10,17,0.15) 40%, rgba(7,10,17,0.75)); }
+.c-a .reef-bg canvas { width: 100%; height: 100%; }
+.c-a .sandbar { position: fixed; left: 0; right: 0; bottom: 0; height: 88px; z-index: 50;
+  background: linear-gradient(180deg, #12202c, #0a1119);
+  box-shadow: inset 0 1px 0 rgba(87, 200, 212, 0.28);
+  display: flex; align-items: center; }
+.c-a .sandbar-in { max-width: 1240px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px);
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.c-a .sandbar nav { display: flex; gap: 8px; }
+.c-a .sandbar nav a {
+  font-family: var(--f-disp); font-size: 16px; color: var(--ink-3);
+  padding: 10px 14px; box-shadow: inset 0 0 0 1px transparent;
+  transition: color 0.2s steps(3, end), box-shadow 0.2s steps(3, end);
+}
+.c-a .sandbar nav a:hover { color: var(--ink); }
+.c-a .sandbar nav a.on { color: var(--acc); box-shadow: inset 0 0 0 1px var(--acc); }
+.c-a .brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-disp); font-size: 20px; }
+.c-a .brand img { width: 28px; height: 28px; image-rendering: pixelated; }
+.c-a .terrace { min-height: 100vh; min-height: 100dvh; display: flex; align-items: flex-end;
+  padding-bottom: 128px; position: relative; z-index: 2; }
+.c-a .terrace-in {
+  width: 100%; background: rgba(8, 20, 28, 0.82);
+  box-shadow: inset 0 0 0 1px var(--line), inset 0 12px 0 -10px rgba(87, 200, 212, 0.24);
+  padding: clamp(20px, 3vw, 36px);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 3vw, 32px);
+  justify-items: center; text-align: center;
+}
+.c-a .terrace-in.split { grid-template-columns: repeat(2, minmax(0, 1fr)); text-align: left; justify-items: stretch; }
+.c-a .terrace-in.split .terrace-shot { align-self: center; }
+.c-a .terrace-in > * { min-width: 0; }
+.c-a .terrace-title { text-align: center; display: grid; justify-items: center; }
+.c-a .terrace-title h1 { margin-bottom: 20px; }
+.c-a .terrace-title .lede { margin-inline: auto; text-align: center; }
+.c-a .cta { display: flex; gap: 12px; justify-content: center; margin-top: 28px; }
+.c-a .terrace-shot { border: 1px solid var(--line); image-rendering: pixelated; }
+.c-a .spec { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); }
+.c-a .spec div { background: rgba(8, 20, 28, 0.9); padding: 20px; }
+.c-a .spec dt { font-family: var(--f-disp); font-size: 12px; color: var(--acc); margin-bottom: 8px; }
+.c-a .spec dd { margin: 0; color: var(--ink-2); font-size: 15px; }
+.keys { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; margin: 0; }
+.keys div { display: flex; gap: 12px; align-items: baseline; }
+.keys dt { font-family: var(--f-disp); font-size: 12px; color: var(--acc); min-width: 84px; }
+.keys dd { margin: 0; color: var(--ink-2); font-size: 15px; overflow-wrap: anywhere; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   B 展缸格 Cubby
+   一柜子玻璃格，三列两行，每格一只真的小缸。导航是左侧竖导轨。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.c-b { padding-left: 88px; }
+.c-b .rail { position: fixed; left: 0; top: 0; bottom: 0; width: 88px; z-index: 50;
+  background: linear-gradient(90deg, #0d1622, #0a0f18);
+  box-shadow: inset -1px 0 0 var(--line-2);
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px 0; }
+.c-b .rail .brand { display: grid; place-items: center; gap: 8px; font-family: var(--f-disp); font-size: 12px; color: var(--ink-2); }
+.c-b .rail .brand img { width: 32px; height: 32px; image-rendering: pixelated; }
+.c-b .rail nav { display: grid; gap: 8px; }
+.c-b .rail nav a {
+  width: 56px; height: 40px; display: grid; place-items: center;
+  font-family: var(--f-disp); font-size: 12px; color: var(--ink-3);
+  box-shadow: inset 0 0 0 1px transparent; transition: all 0.2s steps(3, end);
+}
+.c-b .rail nav a:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.c-b .rail nav a.on { color: var(--acc); box-shadow: inset 0 0 0 1px var(--acc); }
+.c-b .rail .tally { font-family: var(--f-disp); font-size: 12px; color: var(--ink-3); }
+.wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
+  background: var(--line-2); border: 1px solid var(--line-2); }
+.cubby { background: var(--deep-2); display: grid; grid-template-rows: auto auto 1fr; align-content: start; min-width: 0; }
+.cubby-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 16px 20px; box-shadow: inset 0 -1px 0 var(--line-2); }
+.cubby > * { min-width: 0; }
+.cubby-head h3 { font-size: 20px; }
+.cubby-head em { font-style: normal; font-family: var(--f-disp); font-size: 12px; color: var(--ink-3); }
+.cubby .tank-shell { border: 0; aspect-ratio: 16/9; min-height: 150px; }
+.cubby .tank-shell::before, .cubby .tank-shell::after { display: none; }
+.cubby-body { padding: 20px; display: grid; gap: 12px; align-content: start; }
+.cubby-body p { color: var(--ink-2); font-size: 15px; }
+.fish-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.fish-row img { width: 32px; height: 24px; object-fit: contain; image-rendering: pixelated;
+  transition: transform 0.16s steps(3, end); }
+.fish-row img:hover { transform: translateY(-4px); }
+.tagline { display: grid; place-items: center; text-align: center; padding: 96px 0 64px; }
+.tagline h1 { margin-bottom: 20px; }
+.tagline .lede { text-align: center; }
+.tagline .cta { display: flex; gap: 12px; justify-content: center; margin-top: 28px; }
+.cubby.is-big { grid-column: span 3; grid-template-rows: auto auto; }
+.cubby.is-big .tank-shell { aspect-ratio: 32/7; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   C 玻璃长廊 Gallery
+   一镜到底，竖滚驱动横移。导航是右侧深度标尺。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.c-c { padding-right: 72px; }
+.c-c .gauge { position: fixed; right: 0; top: 0; bottom: 0; width: 72px; z-index: 50;
+  background: linear-gradient(270deg, #0d1622, #0a0f18);
+  box-shadow: inset 1px 0 0 var(--line-2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.c-c .gauge nav { display: grid; gap: 12px; }
+.c-c .gauge nav a { display: grid; place-items: center; gap: 8px; }
+.c-c .gauge nav a i { display: block; width: 24px; height: 4px; background: var(--line); transition: all 0.24s steps(4, end); }
+.c-c .gauge nav a span { font-family: var(--f-disp); font-size: 12px; color: var(--ink-3); writing-mode: vertical-rl; opacity: 0; transition: opacity 0.2s steps(3, end); }
+.c-c .gauge nav a.on i { background: var(--acc); width: 36px; }
+.c-c .gauge nav a.on span, .c-c .gauge nav a:hover span { opacity: 1; color: var(--ink); }
+.c-c .gauge .brand { position: absolute; top: 20px; }
+.c-c .gauge .brand img { width: 28px; height: 28px; image-rendering: pixelated; }
+.c-c .corridor { position: relative; height: 400vh; view-timeline-name: --cor; view-timeline-axis: block; }
+.c-c .corridor-sticky { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; display: grid; align-items: center; }
+.c-c .corridor-track { display: flex; width: 400vw; will-change: transform; }
+.c-c .station { width: 100vw; display: grid; place-items: center; padding: 0 clamp(24px, 8vw, 120px); }
+.c-c .station-in { width: min(880px, 100%); text-align: center; display: grid; justify-items: center; }
+.c-c .station-in h2 { margin-bottom: 20px; }
+.c-c .station-in .lede { text-align: center; }
+.c-c .corridor .tank-shell { position: absolute; left: 0; top: 0; width: 300vw;
+  height: 100%; border: 0; z-index: 0; }
+.c-c .corridor .tank-shell::before, .c-c .corridor .tank-shell::after { display: none; }
+.c-c .station-in { position: relative; z-index: 2; }
+.c-c .station-in::before { content: ''; position: absolute; left: 50%; top: 50%; z-index: -1;
+  width: 1100px; height: 560px; margin: -280px 0 0 -550px; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(4,8,12,0.80), rgba(4,8,12,0.52) 48%, rgba(4,8,12,0.18) 74%, transparent 100%); }
+.c-c .station-in .btn { margin-top: 28px; }
+.c-c .spec-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
+  background: var(--line-2); border: 1px solid var(--line-2); margin-top: 32px; width: 100%; }
+.c-c .spec-3 div { background: rgba(7, 14, 20, 0.8); padding: 20px; text-align: left; }
+.c-c .spec-3 dt { font-family: var(--f-disp); font-size: 12px; color: var(--acc); margin-bottom: 8px; }
+.c-c .spec-3 dd { margin: 0; color: var(--ink-2); font-size: 15px; }
+
+@supports (animation-timeline: view()) {
+  @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+    .c-c .corridor-track { animation: corridorMove linear both; animation-timeline: --cor; animation-range: contain 0% contain 100%; }
+    /* 缸也跟着走：三段水色，一段一屏 */
+    .c-c .corridor .tank-shell { animation: corridorTank linear both; animation-timeline: --cor; animation-range: contain 0% contain 100%; }
+  }
+}
+@keyframes corridorMove { to { transform: translateX(-300vw); } }
+@keyframes corridorTank { to { transform: translateX(-200vw); } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   D 剖面图 Cutaway
+   页面是一张工程剖面图，文字是带引线的批注。导航是底部工具条。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.c-d { padding-bottom: 88px; background:
+  linear-gradient(90deg, rgba(87,200,212,0.05) 1px, transparent 1px) 0 0 / 64px 100%,
+  linear-gradient(0deg, rgba(87,200,212,0.05) 1px, transparent 1px) 0 0 / 64px 64px; }
+.c-d .toolbar { position: fixed; left: 0; right: 0; bottom: 0; height: 72px; z-index: 50;
+  background: #0a0f18; box-shadow: inset 0 1px 0 var(--line);
+  display: flex; align-items: center; justify-content: space-between; padding-inline: clamp(16px, 4vw, 48px); }
+.c-d .toolbar nav { display: flex; gap: 8px; }
+.c-d .toolbar nav a { font-family: var(--f-disp); font-size: 16px; color: var(--ink-3); padding: 10px 14px;
+  box-shadow: inset 0 0 0 1px transparent; transition: all 0.2s steps(3, end); }
+.c-d .toolbar nav a:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.c-d .toolbar nav a.on { color: var(--acc); box-shadow: inset 0 0 0 1px var(--acc); }
+.c-d .toolbar .brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-disp); font-size: 20px; }
+.c-d .toolbar .brand img { width: 28px; height: 28px; image-rendering: pixelated; }
+.c-d .sheet { max-width: 1180px; margin-inline: auto; padding: clamp(32px, 5vw, 72px) clamp(16px, 4vw, 48px); }
+.c-d .sheet-head { display: grid; gap: 12px; margin-bottom: 40px; }
+.c-d .sheet-head h1 { font-size: clamp(28px, 3.6vw, 40px); }
+.c-d .sheet-head .lede { max-width: 60ch; }
+.c-d .stamp { display: inline-flex; gap: 16px; align-items: center; font-family: var(--f-disp); font-size: 12px; color: var(--ink-3); }
+.c-d .drawing { position: relative; border: 1px solid var(--line); background: rgba(7, 14, 20, 0.6); }
+.c-d .drawing .tank-shell { border: 0; aspect-ratio: 16/6; }
+.c-d .drawing .tank-shell::before, .c-d .drawing .tank-shell::after { display: none; }
+.c-d .calib span { min-width: 0; overflow-wrap: anywhere; }
+.c-d .calib { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 8px 12px; font-family: var(--f-disp);
+  font-size: 12px; color: var(--ink-3); box-shadow: inset 0 1px 0 var(--line-2); }
+.c-d .notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+  background: var(--line-2); border: 1px solid var(--line-2); margin-top: 40px; }
+.c-d .note { background: var(--deep); padding: 20px 24px; position: relative; }
+.c-d .note h3 { font-size: 20px; margin-bottom: 10px; }
+.c-d .note h3 em { font-style: normal; font-family: var(--f-disp); font-size: 12px; color: var(--acc); margin-right: 10px; }
+.c-d .note p { color: var(--ink-2); font-size: 15px; }
+.c-d .note::before { content: ''; position: absolute; left: 0; top: 0; width: 12px; height: 12px;
+  border-left: 2px solid var(--acc); border-top: 2px solid var(--acc); opacity: 0.6; }
+.c-d .note:hover { background: var(--surf); }
+.c-d .note:hover::before { opacity: 1; }
+.c-d .spec { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
+  background: var(--line-2); border: 1px solid var(--line-2); margin-top: 40px; }
+.c-d .spec div { background: var(--deep); padding: 20px; }
+.c-d .spec dt { font-family: var(--f-disp); font-size: 12px; color: var(--acc); margin-bottom: 8px; }
+.c-d .spec dd { margin: 0; color: var(--ink-2); font-size: 15px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   E 熄灯的房间 Dark Room
+   暗房，缸是唯一光源。文字印在玻璃上，缸照到才看得清。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.c-e { background: #04060a; }
+.c-e .room { position: fixed; inset: 0; z-index: 1; }
+.c-e .room .tank-shell { position: absolute; left: 50%; top: 70%; transform: translate(-50%, -50%);
+  width: min(56vw, 640px); height: min(34vh, 280px); border: 0; background: transparent;
+  filter: brightness(0.88) saturate(1.05);
+  box-shadow: 0 0 240px 60px rgba(87, 200, 212, 0.10); }
+.c-e .room .tank-shell::before, .c-e .room .tank-shell::after { display: none; }
+.c-e .spill { position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(46% 40% at var(--lx, 50%) var(--ly, 46%), rgba(120, 220, 230, 0.13), transparent 70%);
+  transition: background 0.6s linear; }
+.c-e .bed { position: fixed; left: 0; right: 0; bottom: 0; height: 80px; z-index: 50;
+  background: #06090f; box-shadow: inset 0 1px 0 var(--line-2);
+  display: flex; align-items: center; }
+.c-e .bed-in { max-width: 1240px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.c-e .bed nav { display: flex; gap: 20px; }
+.c-e .bed nav a { font-family: var(--f-disp); font-size: 16px; color: var(--ink-3); transition: color 0.2s steps(3, end); }
+.c-e .bed nav a:hover, .c-e .bed nav a.on { color: var(--acc); }
+.c-e .bed .brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-disp); font-size: 20px; }
+.c-e .bed .brand img { width: 28px; height: 28px; image-rendering: pixelated; }
+.c-e main { position: relative; z-index: 3; padding-bottom: 120px; }
+.c-e .pane { min-height: 94vh; min-height: 94dvh; display: grid; align-content: start;
+  justify-items: center; text-align: center; padding: 11vh 0 0; }
+/* 文字印在玻璃上，缸是唯一的光，所以给一层很淡的暗纱把字托住 */
+.c-e .pane-in { max-width: 720px; display: grid; justify-items: center; gap: 20px; position: relative; }
+.c-e .pane-in::before { content: ''; position: absolute; left: 50%; top: 50%; z-index: -1;
+  width: 1000px; height: 620px; margin: -310px 0 0 -500px; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(4,6,10,0.92), rgba(4,6,10,0.6) 55%, transparent 100%); }
+.c-e .pane h1, .c-e .pane h2, .c-e .pane p { text-shadow: 0 2px 20px rgba(0,0,0,0.9); }
+.c-e .pane h1, .c-e .pane h2 { text-shadow: 0 0 32px rgba(87, 200, 212, 0.28); }
+.c-e .pane p { color: var(--ink-2); }
+.c-e .pane .lede { text-align: center; }
+.c-e .pane .cta { display: flex; gap: 12px; justify-content: center; }
+.c-e .lamp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
+  background: var(--line-2); border: 1px solid var(--line-2); width: 100%; }
+.c-e .lamp div { background: #070b12; padding: 24px; text-align: left; }
+.c-e .lamp h3 { font-size: 20px; margin-bottom: 10px; }
+.c-e .lamp p { font-size: 15px; }
+.c-e .lamp i { display: block; width: 32px; height: 4px; background: var(--acc); opacity: 0.4; margin-bottom: 14px; }
+.c-e .lamp div:hover i { opacity: 1; }
+
+/* ═══════════════════════════════════════ 窄屏 ═══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .c-a .terrace-in.split { grid-template-columns: minmax(0, 1fr); text-align: center; justify-items: center; }
+  .c-b { padding-left: 0; padding-bottom: 72px; }
+  .c-b .rail { left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 64px; flex-direction: row; padding-inline: 16px; }
+  .c-b .rail .tally { display: none; }
+  .c-b .rail nav { display: flex; }
+  .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cubby.is-big { grid-column: span 2; }   /* 两列的时候主缸只能占两列，不然网格被撑成三列 */
+  .cubby .tank-shell { min-height: 0; }
+  .c-c { padding-right: 0; padding-bottom: 72px; }
+  .c-c .gauge { left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 64px; }
+  .c-c .gauge nav { display: flex; }
+  .c-c .gauge nav a span { display: none; }
+  .c-c .gauge .brand { display: none; }
+  .c-d .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .wall { grid-template-columns: minmax(0, 1fr); }
+  .cubby.is-big { grid-column: auto; }   /* 一列的时候别再占两列，不然会多出一条隐式列 */
+  .c-a .spec, .c-a .keys, .c-d .notes, .c-e .lamp { grid-template-columns: minmax(0, 1fr); }
+  .c-d .spec { grid-template-columns: minmax(0, 1fr); }
+  .c-c .corridor, .c-c .corridor-track { height: auto; }
+  .c-c .corridor-sticky { position: static; height: auto; }
+  .c-c .corridor-track { display: grid; width: auto; }
+  .c-c .station { width: auto; min-height: 100vh; }
+  /* 窄屏长廊改成竖着走，但缸还是三段长缸：外壳 300vw，body 裁掉溢出，只露第一区 */
+  .c-c .corridor .tank-shell { position: relative; left: auto; top: auto; transform: none; height: 260px; width: 300vw; }
+
+}
+
+/* ═══════════════════════════════════════ 降级 ═══════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .tip { display: none; }
+  .c-a .terrace { min-height: 0; padding: 48px 0; }
+  .c-c .corridor { height: auto; }
+  .c-c .corridor-sticky { position: static; height: auto; }
+  .c-c .corridor-track { width: auto; display: grid; }
+  .c-c .station { width: auto; }
+  .btn, .rail nav a, .toolbar nav a, .bed nav a, .gauge nav a i { transition: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   切换：面板从水里浮上来
+   理由很直接：切一节就像水底的东西升到水面。位移全部用 steps，
+   擦除也是一格一格擦，末尾从台沿真冒一串泡。
+   不用 scroll 监听，进出都靠 IntersectionObserver 给 [data-terrace] 加 is-live。
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-terrace] { position: relative; }
+
+[data-terrace] > .terrace-in {
+  opacity: 0;
+  transform: translateY(28px);
+  clip-path: inset(0 0 100% 0);
+  transition:
+    clip-path 0.62s steps(7, end),
+    transform 0.62s steps(5, end),
+    opacity 0.22s linear;
+}
+[data-terrace].is-live > .terrace-in {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+/* 台沿那条水面线：拉开一下，像水面被分开 */
+.terrace-in::after {
+  content: ''; position: absolute; left: 0; top: 0; height: 4px; z-index: 3;
+  background: var(--acc);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.5s steps(10, end) 0.08s;
+}
+[data-terrace].is-live > .terrace-in::after { transform: scaleX(1); }
+
+/* 玻璃格依次弹入 */
+.cubby { opacity: 0; transform: translateY(12px); transition: opacity 0.28s linear, transform 0.45s steps(4, end); }
+.cubby .tank-shell { transform: scale(0.94); transition: transform 0.45s steps(4, end); }
+[data-terrace].is-live .cubby { opacity: 1; transform: none; }
+[data-terrace].is-live .cubby .tank-shell { transform: scale(1); }
+.is-live .cubby:nth-child(1) { transition-delay: 0.10s; }
+.is-live .cubby:nth-child(2) { transition-delay: 0.16s; }
+.is-live .cubby:nth-child(3) { transition-delay: 0.22s; }
+.is-live .cubby:nth-child(4) { transition-delay: 0.28s; }
+.is-live .cubby:nth-child(5) { transition-delay: 0.34s; }
+.is-live .cubby:nth-child(6) { transition-delay: 0.40s; }
+.is-live .cubby:nth-child(7) { transition-delay: 0.46s; }
+
+/* 标题跟着台面一起上 */
+[data-terrace] > .terrace-in > .terrace-head,
+[data-terrace] > .terrace-in > .terrace-title { opacity: 0; transform: translateY(8px); transition: opacity 0.3s linear 0.06s, transform 0.4s steps(3, end) 0.06s; }
+[data-terrace].is-live > .terrace-in > .terrace-head,
+[data-terrace].is-live > .terrace-in > .terrace-title { opacity: 1; transform: none; }
+
+/* 悬停一格，整格抬 4 格 */
+.cubby { transition: opacity 0.28s linear, transform 0.45s steps(4, end), box-shadow 0.2s steps(3, end); }
+.cubby:hover { box-shadow: inset 0 0 0 1px var(--acc); }
+.cubby:hover .tank-shell { filter: brightness(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-terrace] > .terrace-in, .cubby, .cubby .tank-shell,
+  [data-terrace] > .terrace-in > .terrace-head, .terrace-in::after {
+    opacity: 1; transform: none; clip-path: none; transition: none;
+  }
+  .terrace-in::after { transform: scaleX(1); }
+}

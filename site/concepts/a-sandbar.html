@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>概念 A · 沉底站 Sandbar</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+</head>
+<body class="c-a">
+
+<!-- 整页一缸水，固定在后面 -->
+<div class="reef-bg"><div class="tank-shell flush" data-tank="bg"><canvas class="tank"></canvas></div></div>
+
+<!-- 导航放在下面：缸底的沙缘 -->
+<div class="sandbar">
+  <div class="sandbar-in">
+    <a class="brand" href="#top"><img src="../assets/icon/app.png" alt="" width="28" height="28"><span>摸鱼水族馆</span></a>
+    <nav data-nav>
+      <a href="#t1">形态</a>
+      <a href="#t2">三座馆</a>
+      <a href="#t3">玩法</a>
+    </nav>
+    <span class="px" style="font-size:12px;color:var(--ink-3)">Godot 4.7</span>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- 一层：标题坐在沙台上，鱼从台子后面游过去 -->
+  <section class="terrace" data-terrace id="t1">
+    <div class="wrap terrace-in">
+      <div class="terrace-title">
+        <p class="kicker">Godot 4.7 桌面挂件</p>
+        <h1>挂在桌边的一整座水族馆</h1>
+        <p class="lede">鱼自己游、自己攒金币、自己生小鱼。上班时它是屏幕底下的一扇窗，想玩的时候点一下展开。</p>
+        <div class="cta">
+          <a class="btn btn-pri" href="#t2">看三座馆</a>
+          <a class="btn" href="#t3">怎么玩</a>
+        </div>
+      </div>
+      <img class="terrace-shot" src="../assets/shots/widget.png" alt="挂件形态实机截图，一条横向的像素水族馆贴在屏幕底边" width="2865" height="239" style="max-width:880px">
+    </div>
+  </section>
+
+  <!-- 二层：三座馆 -->
+  <section class="terrace" data-terrace id="t2">
+    <div class="wrap terrace-in split">
+      <div>
+        <p class="kicker">三座馆</p>
+        <h2>横向一条长缸，切成三段</h2>
+        <p class="lede" style="margin-bottom:24px">每段正好一屏宽，三区开局全开，滑过去就到。</p>
+        <dl class="spec">
+          <div><dt>珊瑚礁区</dt><dd>亮蓝绿，有阳光光柱。开局自带 8 条。</dd></div>
+          <div><dt>淡水草缸区</dt><dd>暖绿，光柱很淡。水草丛生，没有珊瑚。</dd></div>
+          <div><dt>深海区</dt><dd>近黑，光柱和焦散全关，礁石压成冷青。</dd></div>
+          <div><dt>容量</dt><dd>每区 8 条起步，扩到 12 要 300 乘展区序号。</dd></div>
+        </dl>
+      </div>
+      <img class="terrace-shot" src="../assets/shots/expand.png" alt="展开形态实机截图，右侧是商店面板" width="2865" height="899">
+    </div>
+  </section>
+
+  <!-- 三层：玩法 -->
+  <section class="terrace" data-terrace id="t3">
+    <div class="wrap terrace-in split">
+      <div>
+        <p class="kicker">玩法</p>
+        <h2>点一下水面，鱼会自己来</h2>
+        <p class="lede" style="margin-bottom:24px">挂件形态不打扰，所以整局的钱都是撒饵撒出来的。</p>
+        <dl class="keys">
+          <div><dt>点水面</dt><dd>撒一粒饵料</dd></div>
+          <div><dt>点金币</dt><dd>收进钱包</dd></div>
+          <div><dt>空格</dt><dd>展开 / 收起</dd></div>
+          <div><dt>Esc</dt><dd>收起</dd></div>
+          <div><dt>拖 / 横滑</dt><dd>浏览整条缸</dd></div>
+          <div><dt>P</dt><dd>截图</dd></div>
+        </dl>
+      </div>
+      <div>
+        <dl class="spec" style="grid-template-columns:minmax(0,1fr)">
+          <div><dt>产币</dt><dd>金币落到沙上 2.5 秒后自己进钱包，不点也会收。</dd></div>
+          <div><dt>投食</dt><dd>最近的鱼加速游过去吃掉，接下来两分钟产币翻倍。</dd></div>
+          <div><dt>离线</dt><dd>最多按 8 小时结算，打开时底部给一行提示。</dd></div>
+        </dl>
+        <p style="margin-top:20px;color:var(--ink-3);font-size:15px">
+          顺手试试：戳水里冒出来的泡泡，或者点一条鱼，它会吐一串泡再窜走。
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+<script>
+Aquarium.boot(function () {
+  var shell = document.querySelector('[data-tank="bg"]');
+  Reef.tank(shell, [0], { 0: ['blue_tang','clownfish','butterfly','angelfish','clownfish','angelfish','butterfly','clownfish'] }, { scale: 5, tall: true });
+  Reef.sections('[data-terrace]', function (el) {
+    var r = el.getBoundingClientRect();
+    for (var i = 0; i < 8; i++) {
+      Reef.burst(r.left + 40 + (r.width - 80) * (i / 7), r.top + 6, 2, { sp: 9 + Math.random() * 8, r: 3 + (i % 3) });
+    }
+  });
+  document.querySelectorAll('.btn, .sandbar nav a').forEach(function (b) { Reef.bubbly(b, 5); });
+});
+</script>
+</body>
+</html>

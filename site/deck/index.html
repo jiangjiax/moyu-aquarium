@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>摸鱼水族馆 · 介绍</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+<div id="stage">
+
+  <!-- 01 封面：整屏通缸，标题压在水面上 -->
+  <section class="slide on" data-title="封面">
+    <div class="waterline"></div>
+    <div class="cover-tank"><img src="img/z0.png" alt="珊瑚礁区实时画面"></div>
+    <div class="cover-mask"></div>
+    <div class="cover-in">
+      <p class="kicker rise d1">Godot 4.7 / GDScript</p>
+      <h1 class="rise d2">摸鱼水族馆</h1>
+      <p class="lede rise d3" style="margin-top:24px">挂在电脑桌面底边的一整座水族馆。鱼自己游、自己攒金币、自己生小鱼。</p>
+    </div>
+    <div class="cover-meta rise d4">
+      <span class="badge">像素素材由 Python 脚本生成</span>
+      <span class="badge">一条命令 ./run.sh 跑起来</span>
+    </div>
+  </section>
+
+  <!-- 02 它是什么 -->
+  <section class="slide" data-title="它是什么">
+    <div class="waterline"></div>
+    <div class="split">
+      <div>
+        <p class="kicker rise d1">01 / 它是什么</p>
+        <h2 class="rise d2">一扇窗，<br>不是一个小工具</h2>
+        <p class="lede rise d3" style="margin-top:28px">整块缸贴在屏幕底边，四角之外能看见桌面。除了左上角那个挂耳，其余部分点击穿透。</p>
+        <p class="tiny rise d4" style="margin-top:28px">20 秒没人碰，镜头按馆巡游。收起不留窗口，不弹通知，不出声。</p>
+      </div>
+      <figure class="rise d3" style="display:grid;gap:12px">
+        <img class="shot" src="../assets/shots/widget.png" alt="挂件形态实机截图">
+        <figcaption class="px tiny">挂件形态实机：2865×239，贴在屏幕底边的一条横向观景窗</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 03 两种形态 -->
+  <section class="slide" data-title="两种形态">
+    <div class="waterline"></div>
+    <p class="kicker rise d1">02 / 两种形态</p>
+    <h2 class="rise d2" style="margin-bottom:28px">平时一条线，想玩才铺开</h2>
+    <div class="compare cols c2 rise d3" style="align-items:start">
+      <figure>
+        <img class="shot" src="../assets/shots/widget.png" alt="挂件形态">
+        <figcaption>挂件形态 · 空格展开</figcaption>
+      </figure>
+      <figure>
+        <img class="shot" src="../assets/shots/expand.png" alt="展开形态">
+        <figcaption>展开形态 · 大半屏，右侧是商店</figcaption>
+      </figure>
+    </div>
+    <p class="tiny rise d4" style="margin-top:24px">位置不变，镜头的落点也不变。展开形态左右拖动浏览整条缸，点商店页签镜头会推过去。</p>
+  </section>
+
+  <!-- 04 三座馆 -->
+  <section class="slide" data-title="三座馆">
+    <div class="waterline"></div>
+    <p class="kicker rise d1">03 / 三座馆</p>
+    <h2 class="rise d2" style="margin-bottom:24px">横向一条长缸，切成三段</h2>
+    <div class="cols c3 rise d3">
+      <figure class="zone">
+        <img src="img/z0.png" alt="珊瑚礁区">
+        <h3>珊瑚礁区</h3>
+        <p>亮蓝绿，有阳光光柱。鹿角珊瑚、脑珊瑚、扇珊瑚、海葵。开局自带 8 条。</p>
+      </figure>
+      <figure class="zone">
+        <img src="img/z1.png" alt="淡水草缸区">
+        <h3>淡水草缸区</h3>
+        <p>暖绿，光柱很淡。水草丛生、石头顶上长草，没有珊瑚。开局空着。</p>
+      </figure>
+      <figure class="zone">
+        <img src="img/z2.png" alt="深海区">
+        <h3>深海区</h3>
+        <p>近黑。光柱和焦散全关，礁石压成冷青，摆得疏。开局空着。</p>
+      </figure>
+    </div>
+    <p class="tiny rise d4" style="margin-top:24px">三张都是程序实时跑的截图，不是美术稿。每段正好一屏宽，滑过去就到。</p>
+  </section>
+
+  <!-- 05 十一条鱼 -->
+  <section class="slide" data-title="十一条鱼">
+    <div class="waterline"></div>
+    <p class="kicker rise d1">04 / 鱼与钱</p>
+    <h2 class="rise d2" style="margin-bottom:24px">十一条鱼，三种价</h2>
+    <div class="cols c3 rise d3" style="gap:24px">
+      <div class="frame">
+        <h3 style="margin-bottom:12px">珊瑚礁区</h3>
+        <table class="px-table">
+          <tr><td><img src="../assets/species/clownfish.png" alt="小丑鱼" width="22">小丑鱼</td><td class="n">1.0</td><td class="n">10</td></tr>
+          <tr><td><img src="../assets/species/chromis.png" alt="银汉鱼" width="16">银汉鱼</td><td class="n">2.0</td><td class="n">20</td></tr>
+          <tr><td><img src="../assets/species/blue_tang.png" alt="蓝倒吊" width="24">蓝倒吊</td><td class="n">4.0</td><td class="n">50</td></tr>
+          <tr><td><img src="../assets/species/angelfish.png" alt="神仙鱼" width="20">神仙鱼</td><td class="n">12.0</td><td class="n">200</td></tr>
+          <tr><td><img src="../assets/species/butterfly.png" alt="蝴蝶鱼" width="22">蝴蝶鱼</td><td class="n">20.0</td><td class="n">300</td></tr>
+        </table>
+      </div>
+      <div class="frame">
+        <h3 style="margin-bottom:12px">淡水草缸区</h3>
+        <table class="px-table">
+          <tr><td><img src="../assets/species/guppy.png" alt="孔雀鱼" width="16">孔雀鱼</td><td class="n">5.0</td><td class="n">80</td></tr>
+          <tr><td><img src="../assets/species/neon.png" alt="霓虹灯鱼" width="16">霓虹灯鱼</td><td class="n">12.0</td><td class="n">250</td></tr>
+          <tr><td><img src="../assets/species/discus.png" alt="七彩神仙" width="22">七彩神仙</td><td class="n">35.0</td><td class="n">800</td></tr>
+        </table>
+        <p class="tiny" style="margin-top:12px">淡水没有珊瑚，这几张鱼图暂时是珊瑚礁那几张改了色。</p>
+      </div>
+      <div class="frame">
+        <h3 style="margin-bottom:12px">深海区</h3>
+        <table class="px-table">
+          <tr><td><img src="../assets/species/lantern.png" alt="灯笼鱼" width="16">灯笼鱼</td><td class="n">20.0</td><td class="n">400</td></tr>
+          <tr><td><img src="../assets/species/jelly.png" alt="水母" width="22">水母</td><td class="n">50.0</td><td class="n">1200</td></tr>
+          <tr><td><img src="../assets/species/angler.png" alt="鮟鱇鱼" width="20">鮟鱇鱼</td><td class="n">150.0</td><td class="n">4000</td></tr>
+        </table>
+        <p class="tiny" style="margin-top:12px">深海的光全靠鱼自己亮，所以最贵的一条产币 150。</p>
+      </div>
+    </div>
+    <p class="tiny rise d4" style="margin-top:20px">中间一列是产币速度，右边是价格。数值只集中在 godot/catalog.gd 一个文件里，调价只动它。</p>
+  </section>
+
+  <!-- 06 玩法 -->
+  <section class="slide" data-title="怎么玩">
+    <div class="waterline"></div>
+    <div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+      <div>
+        <p class="kicker rise d1">05 / 怎么玩</p>
+        <h2 class="rise d2">点一下水面，<br>鱼会自己来</h2>
+        <p class="lede rise d3" style="margin-top:24px">挂件形态不打扰，所以整局的钱都是撒饵撒出来的。</p>
+        <img class="shot rise d4" style="margin-top:28px" src="img/feed.png" alt="撒饵之后鱼抢过来吃">
+      </div>
+      <div class="steps rise d3">
+        <div><span class="n">01</span><h3>撒饵</h3><p>点水里任意一竖线，饵料先浮一下，再加速沉到终端速度，边沉边晃，落底停在沙上。</p></div>
+        <div><span class="n">02</span><h3>抢食</h3><p>最近的鱼加速游过去吃掉，吃饱之后接下来两分钟产币翻倍。</p></div>
+        <div><span class="n">03</span><h3>产币</h3><p>金币落到沙上，2.5 秒后自己进钱包。两种形态都一样，不点也会自己收。</p></div>
+        <div><span class="n">04</span><h3>买鱼与扩建</h3><p>右侧商店买鱼、扩容量。买的鱼从水面扑通跳进来，落在看得见的那截水中间。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 素材管线 -->
+  <section class="slide" data-title="素材管线">
+    <div class="waterline"></div>
+    <p class="kicker rise d1">06 / 素材管线</p>
+    <h2 class="rise d2" style="margin-bottom:24px">项目里没有一张手画的图</h2>
+    <div class="frame tight rise d3" style="padding:0">
+      <img src="../assets/shots/fish_preview.png" alt="Python 管线生成的鱼图验收图，五种鱼各四帧摆尾" style="width:100%;image-rendering:pixelated;display:block">
+    </div>
+    <p class="tiny rise d3" style="margin-top:12px">五种鱼，每种四帧摆尾自动生成。摆尾帧是脚本按轮廓和花纹推的，不是一张张画的。</p>
+    <div class="cols c4 rise d4" style="margin-top:24px;gap:24px;align-items:start">
+      <div><h3 style="font-size:20px;margin-bottom:8px">色带</h3><p class="tiny">暗部偏冷、亮部偏暖</p></div>
+      <div><h3 style="font-size:20px;margin-bottom:8px">光照</h3><p class="tiny">距离场从左上来</p></div>
+      <div><h3 style="font-size:20px;margin-bottom:8px">描边</h3><p class="tiny">只描该描的那一圈</p></div>
+      <div><pre class="cmd wrap">python3 tools/make_art.py --preview
+cd godot && godot --headless --import</pre></div>
+    </div>
+  </section>
+
+  <!-- 08 技术 -->
+  <section class="slide" data-title="技术">
+    <div class="waterline"></div>
+    <p class="kicker rise d1">07 / 技术</p>
+    <h2 class="rise d2" style="margin-bottom:24px">整缸只有一套像素网格</h2>
+    <div class="cols c3 rise d3">
+      <div class="frame">
+        <h3 style="margin-bottom:12px">像素网格</h3>
+        <p class="tiny">整缸画在美术分辨率的 SubViewport 里再整数倍放大。Retina 下挂件形态 1 格 = 3 物理像素，展开形态 = 6。界面自己一套倍率，不跟缸走。</p>
+      </div>
+      <div class="frame">
+        <h3 style="margin-bottom:12px">四个 shader</h3>
+        <ul class="plain" style="font-size:14px">
+          <li><code>water</code> 色带 + Bayer 抖动 + 斜光柱</li>
+          <li><code>caustics</code> 两层扭曲网格取最小值</li>
+          <li><code>sway</code> 按像素行整格平移</li>
+          <li><code>round</code> 按 SDF 把整块缸裁成圆角</li>
+        </ul>
+      </div>
+      <div class="frame">
+        <h3 style="margin-bottom:12px">存档</h3>
+        <pre class="cmd" style="font-size:14px;line-height:1.8">user://aquarium.json
+  钱包 / 每区容量
+  每条鱼：品种 / 展区 / 位置</pre>
+        <p class="tiny" style="margin-top:12px">改动时、每 15 秒、退出时各存一次。离线最多按 8 小时结算。</p>
+      </div>
+    </div>
+    <p class="tiny rise d4" style="margin-top:20px">摇摆走 shader 是因为旋转会把像素拧斜，整格平移网格永远是正的。</p>
+  </section>
+
+  <!-- 09 里程碑 -->
+  <section class="slide" data-title="里程碑">
+    <div class="waterline"></div>
+    <p class="kicker rise d1">08 / 里程碑</p>
+    <h2 class="rise d2" style="margin-bottom:24px">四个里程碑</h2>
+    <div class="rule"></div>
+    <div class="cols c4 rise d3" style="gap:1px;background:var(--line-2);border:1px solid var(--line-2)">
+      <div class="mile done" style="border:0"><span class="tag">完成</span><h3>三座馆</h3><p>缸切成三区加三种风格加镜头巡游。只用现有素材，零新美术。</p></div>
+      <div class="mile done" style="border:0"><span class="tag">完成</span><h3>钱</h3><p>存档、被动产币、买鱼、点水面投食、点金币收起来、扩建容量。</p></div>
+      <div class="mile doing" style="border:0"><span class="tag">进行中</span><h3>素材</h3><p>淡水区、深海区真正的鱼种和布景。这一轮的验收命令和别的里程碑不一样。</p></div>
+      <div class="mile" style="border:0"><span class="tag">待做</span><h3>生态</h3><p>配对下蛋孵化、离线结算框、图鉴、时间加速键、幼鱼成长。</p></div>
+    </div>
+    <p class="tiny rise d4" style="margin-top:20px">每个里程碑的验收都只靠 ./run.sh。所以画新素材单独占一个，不塞进玩法里程碑里。</p>
+  </section>
+
+  <!-- 10 跑起来 -->
+  <section class="slide" data-title="跑起来">
+    <div class="waterline"></div>
+    <div style="display:grid;place-items:center;text-align:center;height:100%;gap:0">
+      <p class="kicker rise d1" style="justify-content:center">09 / 跑起来</p>
+      <h2 class="rise d2" style="font-size:56px">跑起来只要一条命令</h2>
+      <pre class="cmd rise d3" style="font-size:28px;margin:36px 0 28px;padding:24px 32px">./run.sh<i class="caret"></i></pre>
+      <p class="tiny rise d4">前提是本机装了 Godot 4.7。窗口会直接贴在桌面底边，左上角那个小挂耳点一下就展开。</p>
+      <div class="rise d5" style="display:flex;gap:12px;margin-top:32px">
+        <span class="badge">Godot 4.7</span>
+        <span class="badge">Fusion Pixel Font / OFL-1.1</span>
+        <span class="badge on">11 只缸实时在跑</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底栏 -->
+  <div id="bar">
+    <span class="now" id="now">01</span>
+    <span class="title" id="title">封面</span>
+    <span id="dots"></span>
+    <span class="px" id="total">10</span>
+  </div>
+  <div id="hint" class="px">← → 翻页</div>
+
+</div>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="deck.js"></script>
+</body>
+</html>

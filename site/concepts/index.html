@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>摸鱼水族馆 · 五个版式方向</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+<style>
+  body { padding: 48px 0 96px; }
+  .head { max-width: 900px; margin: 0 auto 48px; text-align: center; display: grid; gap: 16px; }
+  .cards { max-width: 1180px; margin-inline: auto; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px;
+    background: var(--line-2); border: 1px solid var(--line-2); }
+  .card { background: var(--deep-2); padding: 28px; display: grid; gap: 14px; align-content: start; }
+  .card h2 { font-size: 24px; display: flex; align-items: baseline; gap: 12px; }
+  .card h2 em { font-style: normal; font-family: var(--f-disp); font-size: 12px; color: var(--acc); }
+  .card p { color: var(--ink-2); font-size: 15px; }
+  .card .sketch { font-family: var(--f-mono); font-size: 12px; line-height: 1.6; color: var(--ink-3);
+    background: var(--deep); border: 1px solid var(--line-2); padding: 16px; white-space: pre; overflow-x: auto; }
+  .card .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .card .tags span { font-family: var(--f-disp); font-size: 12px; color: var(--ink-3); padding: 6px 8px; box-shadow: inset 0 0 0 1px var(--line-2); }
+  .card .btn { justify-self: start; }
+  .note { max-width: 900px; margin: 48px auto 0; display: grid; gap: 12px; }
+  .note h3 { font-size: 20px; }
+  .note li { color: var(--ink-2); font-size: 15px; }
+  @media (max-width: 900px) { .cards { grid-template-columns: minmax(0,1fr); } }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <p class="kicker">摸鱼水族馆 · 版式方向</p>
+  <h1>六个方向，五种水下的房间</h1>
+  <p class="lede" style="margin-inline:auto;text-align:center">整页都是一缸水，区别在版式骨架和叙事方式。F 是 A 与 B 的融合。六个都共用同一套水下交互引擎：泡泡、戳破后的 watercolor 提示、鱼翻滚啄沙追指针。</p>
+</header>
+
+<div class="cards">
+
+  <section class="card">
+    <h2><em>A</em>沉底站 Sandbar</h2>
+    <p>整页一缸水，文字坐在底部的沙台上，导航是缸底那条沙缘。鱼从文字后面游过去。</p>
+    <div class="sketch">┌──────────────────────────┐
+│  水 · 鱼 · 泡 · 光柱      │
+│  ┌────────────────────┐  │
+│  │ 沙台：标题 正文 CTA │  │
+│  └────────────────────┘  │
+├──────────────────────────┤
+│ ○形态  ○三馆  ○玩法        │</div>
+    <div class="tags"><span>底部导航</span><span>满屏通缸</span><span>最低成本</span></div>
+    <a class="btn btn-pri" href="a-sandbar.html">打开 A</a>
+  </section>
+
+  <section class="card">
+    <h2><em>B</em>展缸格 Cubby</h2>
+    <p>页面是一柜子玻璃格，三列三行，每格一只真的小缸，七只缸同时在跑。导航是左侧竖导轨。</p>
+    <div class="sketch">┌────┬──────┬──────┬──────┐
+│形│ ┌──┐ │ ┌──┐ │ ┌──┐ │
+│态│ │主│ │ │淡│ │ │深│ │
+│三│ │缸│ │ │水│ │ │海│ │
+│座│ └──┘ │ └──┘ │ └──┘ │
+│馆│ ┌──┐ │ ┌──┐ │ ┌──┐ │
+│鱼│ │  │ │ │  │ │ │  │ │
+└────┴──────┴──────┴──────┘</div>
+    <div class="tags"><span>左侧导航</span><span>七只活缸</span><span>零不对称</span></div>
+    <a class="btn btn-pri" href="b-cubby.html">打开 B</a>
+  </section>
+
+  <section class="card">
+    <h2><em>C</em>玻璃长廊 Gallery</h2>
+    <p>一镜到底。竖滚驱动横移，玻璃后面那条通缸跟着换区，文字从它前面走过去。导航是右侧深度标尺。</p>
+    <div class="sketch">   站1      站2      站3      站4
+ ┌───────┬───────┬───────┬───────┐
+ │  形态  │ 三馆  │ 鱼钱  │ 启动  │
+ └───────┴───────┴───────┴───────┘
+ ╭─────────────────────────────╮
+ │      通缸（滚动时平移）      │
+ ╰─────────────────────────────╯</div>
+    <div class="tags"><span>右侧标尺</span><span>横向推进</span><span>缸跟着换区</span></div>
+    <a class="btn btn-pri" href="c-gallery.html">打开 C</a>
+  </section>
+
+  <section class="card">
+    <h2><em>D</em>剖面图 Cutaway</h2>
+    <p>页面是一张工程剖面图。文字是带编号的批注，鼠标指到哪条，缸里对应那条鱼就被框住。导航是底部工具条。</p>
+    <div class="sketch">┌─ 64px 工程栅格 ─────────┐
+│ 01 水     │ 02 鱼          │
+│ 03 沙     │ 04 玻璃        │
+│ ┌───────────────────────┐ │
+│ │      剖面（真缸）       │ │
+│ └───────────────────────┘ │
+└──────────────────────────┘
+│ ▌批注 ▌规格 ▌里程碑 ▌命令   │</div>
+    <div class="tags"><span>底部工具条</span><span>批注联动</span><span>最冷静</span></div>
+    <a class="btn btn-pri" href="d-cutaway.html">打开 D</a>
+  </section>
+
+  <section class="card">
+    <h2><em>E</em>熄灯的房间 Dark Room</h2>
+    <p>关灯之后的房间，缸是唯一光源。文字印在玻璃上，缸照到才看得清；鼠标移过去，光就跟着走。</p>
+    <div class="sketch">░░░░░░░░░░░░░░░░░░░
+░░ ╭───────────╮ ░░
+░░ │ 印在玻璃上 │ ← 缸照到才亮
+░░ ╰───────────╯ ░░
+░░░░░ 床头条：站点 ░░░░░</div>
+    <div class="tags"><span>床头条</span><span>光效层</span><span>气质最独特</span></div>
+    <a class="btn btn-pri" href="e-darkroom.html">打开 E</a>
+  </section>
+
+  <section class="card" style="background:var(--surf)">
+    <h2><em>F</em>融合版 沙台玻璃墙</h2>
+    <p>A 的骨架加 B 的墙。整页一缸水，四个沙台，每个沙台底部摆一柜子玻璃格。11 只缸同时在跑。</p>
+    <div class="sketch">┌──────────────────────────┐
+│  水（整页一缸，鱼在文字后游） │
+│  ┌──────────────────────┐  │
+│  │ 标题 / 正文 / CTA     │  │
+│  ├────┬────┬────────────┤  │
+│  │ 缸 │ 缸 │     缸     │  │  ← 玻璃墙，三列等宽
+│  ├────┴────┴────────────┤  │
+│  └──────────────────────┘  │
+├──────────────────────────┤
+│ ○形态 ○三馆 ○鱼钱 ○玩法      │</div>
+    <div class="tags"><span>底部导航</span><span>三列玻璃墙</span><span>11 只活缸</span></div>
+    <a class="btn btn-pri" href="f-fusion.html">打开 F</a>
+  </section>
+
+  <section class="card">
+    <h2><em>共用</em>水下交互引擎</h2>
+    <p>五个方向都已经接上下面这些，随便点哪个页面都能玩。</p>
+    <ul style="color:var(--ink-2);font-size:15px;margin:0;padding-left:20px;display:grid;gap:8px">
+      <li>鱼会自己吐泡泡，沙底会慢慢冒泡</li>
+      <li>泡泡可以戳破，破了洇出一朵 watercolor 玩法提示</li>
+      <li>鱼贴到沙底会自己翻滚、啄沙冒泡</li>
+      <li>点一条鱼：吐一串泡、炸一下金币、窜走</li>
+      <li>点水里：撒饵，最近的鱼抢过来吃</li>
+      <li>按钮、页签、鱼图上点一下都冒泡</li>
+    </ul>
+    <div class="tags"><span>全部只动 transform / opacity</span><span>无 scroll 监听</span></div>
+  </section>
+
+</div>
+
+<p class="note px" style="text-align:center;color:var(--ink-3)">挑一个，或者拼：A 的底部导航 + C 的横向长廊</p>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+</body>
+</html>

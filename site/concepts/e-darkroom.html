@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>概念 E · 熄灯的房间 Dark Room</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+</head>
+<body class="c-e">
+
+<!-- 暗房。缸是唯一光源 -->
+<div class="room"><div class="tank-shell flush" data-tank="room"><canvas class="tank"></canvas></div></div>
+<div class="spill" aria-hidden="true"></div>
+
+<!-- 床头条：站点 + 一盏小灯 -->
+<div class="bed">
+  <div class="bed-in">
+    <a class="brand" href="#top"><img src="../assets/icon/app.png" alt="" width="28" height="28"><span>摸鱼水族馆</span></a>
+    <nav data-nav>
+      <a href="#p1">形态</a>
+      <a href="#p2">三座馆</a>
+      <a href="#p3">启动</a>
+    </nav>
+    <span class="px" style="font-size:12px;color:var(--ink-3)">灯随鱼走</span>
+  </div>
+</div>
+
+<main id="top">
+
+  <section class="pane" id="p1">
+    <div class="pane-in">
+      <p class="kicker">Godot 4.7 桌面挂件</p>
+      <h1>挂在桌边的一整座水族馆</h1>
+      <p class="lede">鱼自己游、自己攒金币、自己生小鱼。关灯之后，这间屋子里只剩它还亮着。</p>
+      <div class="cta">
+        <a class="btn btn-pri" href="#p2">看三座馆</a>
+        <a class="btn" href="#p3">怎么跑起来</a>
+      </div>
+      <p style="color:var(--ink-3);font-size:15px">移动鼠标，光就跟着走。点缸里的泡泡，它会把那一块文字照亮一下。</p>
+    </div>
+  </section>
+
+  <section class="pane" id="p2">
+    <div class="pane-in">
+      <h2>横向一条长缸，切成三段</h2>
+      <p class="lede">每段正好一屏宽，三区开局全开，滑过去就到。</p>
+      <div class="lamp">
+        <div>
+          <i></i>
+          <h3>珊瑚礁区</h3>
+          <p>亮蓝绿，有阳光光柱。鹿角珊瑚、脑珊瑚、扇珊瑚、海葵。开局自带 8 条。</p>
+        </div>
+        <div>
+          <i></i>
+          <h3>淡水草缸区</h3>
+          <p>暖绿，光柱很淡。水草丛生，石头顶上长草，没有珊瑚。开局空着。</p>
+        </div>
+        <div>
+          <i></i>
+          <h3>深海区</h3>
+          <p>近黑。光柱和焦散全关，礁石压成冷青，摆得疏。开局空着。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pane" id="p3">
+    <div class="pane-in">
+      <h2>跑起来只要一条命令</h2>
+      <p class="lede">前提是本机装了 Godot 4.7。窗口会直接贴在桌面底边，左上角那个小挂耳点一下就展开。</p>
+      <pre class="code" style="font-family:var(--f-mono);font-size:14px;line-height:1.8;margin:0;padding:20px 24px;background:rgba(6,10,16,0.8);border:1px solid var(--line);color:var(--acc)">./run.sh</pre>
+      <dl class="keys" style="grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px;margin-top:8px">
+        <div><dt>空格</dt><dd>展开 / 收起</dd></div>
+        <div><dt>点水面</dt><dd>撒一粒饵料</dd></div>
+        <div><dt>点金币</dt><dd>收进钱包</dd></div>
+        <div><dt>Esc</dt><dd>收起</dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+<script>
+Aquarium.boot(function () {
+  Reef.tank(document.querySelector('[data-tank="room"]'), [0], {
+    0: ['blue_tang','clownfish','butterfly','angelfish','clownfish','angelfish','butterfly','clownfish']
+  }, { px: 130, tall: true });
+
+  /* 灯跟着指针走。这是鼠标事件，不是 scroll 监听。 */
+  var spill = document.querySelector('.spill');
+  window.addEventListener('pointermove', function (e) {
+    spill.style.setProperty('--lx', e.clientX + 'px');
+    spill.style.setProperty('--ly', e.clientY + 'px');
+  }, { passive: true });
+
+  document.querySelectorAll('.btn, .bed nav a, .lamp div').forEach(function (b) { Reef.bubbly(b, 5); });
+});
+</script>
+</body>
+</html>

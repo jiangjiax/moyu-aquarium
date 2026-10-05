@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>概念 C · 玻璃长廊 Gallery</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+</head>
+<body class="c-c">
+
+<!-- 导航是右侧那根深度标尺 -->
+<div class="gauge">
+  <a class="brand" href="#top"><img src="../assets/icon/app.png" alt="" width="28" height="28"></a>
+  <nav data-nav>
+    <a href="#s1"><i></i><span>形态</span></a>
+    <a href="#s2"><i></i><span>三馆</span></a>
+    <a href="#s3"><i></i><span>鱼钱</span></a>
+    <a href="#s4"><i></i><span>启动</span></a>
+  </nav>
+</div>
+
+<div class="corridor" id="top">
+  <div class="corridor-sticky">
+
+    <!-- 玻璃后面那条通缸一直在那儿，文字从它前面走过去 -->
+    <div class="tank-shell flush" data-tank="long"><canvas class="tank"></canvas></div>
+
+    <div class="corridor-track">
+      <section class="station" id="s1">
+        <div class="station-in">
+          <p class="kicker">Godot 4.7 桌面挂件</p>
+          <h1>挂在桌边的一整座水族馆</h1>
+          <p class="lede">鱼自己游、自己攒金币、自己生小鱼。上班时它是屏幕底下的一扇窗，想玩的时候点一下展开。</p>
+          <a class="btn btn-pri" href="#s2">往里走</a>
+        </div>
+      </section>
+
+      <section class="station" id="s2">
+        <div class="station-in">
+          <h2>横向一条长缸，切成三段</h2>
+          <p class="lede">每段正好一屏宽，三区开局全开，滑过去就到。玻璃后面这一缸是真的在跑。</p>
+          <dl class="spec-3">
+            <div><dt>珊瑚礁区</dt><dd>亮蓝绿，有阳光光柱。开局自带 8 条。</dd></div>
+            <div><dt>淡水草缸区</dt><dd>暖绿，光柱很淡，水草丛生。</dd></div>
+            <div><dt>深海区</dt><dd>近黑，礁石压成冷青，摆得疏。</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="station" id="s3">
+        <div class="station-in">
+          <h2>十一条鱼，三种价</h2>
+          <p class="lede">价格和产币速度都对着 godot/catalog.gd 抄的。</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px">
+            <img src="../assets/species/clownfish.png" alt="小丑鱼 10" width="40" height="30" title="小丑鱼 10">
+            <img src="../assets/species/chromis.png" alt="银汉鱼 20" width="40" height="30" title="银汉鱼 20">
+            <img src="../assets/species/blue_tang.png" alt="蓝倒吊 50" width="40" height="30" title="蓝倒吊 50">
+            <img src="../assets/species/angelfish.png" alt="神仙鱼 200" width="40" height="30" title="神仙鱼 200">
+            <img src="../assets/species/butterfly.png" alt="蝴蝶鱼 300" width="40" height="30" title="蝴蝶鱼 300">
+            <img src="../assets/species/guppy.png" alt="孔雀鱼 80" width="40" height="30" title="孔雀鱼 80">
+            <img src="../assets/species/neon.png" alt="霓虹灯鱼 250" width="40" height="30" title="霓虹灯鱼 250">
+            <img src="../assets/species/discus.png" alt="七彩神仙 800" width="40" height="30" title="七彩神仙 800">
+            <img src="../assets/species/lantern.png" alt="灯笼鱼 400" width="40" height="30" title="灯笼鱼 400">
+            <img src="../assets/species/jelly.png" alt="水母 1200" width="40" height="30" title="水母 1200">
+            <img src="../assets/species/angler.png" alt="鮟鱇鱼 4000" width="40" height="30" title="鮟鱇鱼 4000">
+          </div>
+        </div>
+      </section>
+
+      <section class="station" id="s4">
+        <div class="station-in">
+          <h2>跑起来只要一条命令</h2>
+          <p class="lede">前提是本机装了 Godot 4.7。窗口会直接贴在桌面底边，左上角那个小挂耳点一下就展开。</p>
+          <pre class="code" style="font-family:var(--f-mono);font-size:14px;line-height:1.8;margin:28px 0 0;padding:20px 24px;background:rgba(7,14,20,0.86);border:1px solid var(--line);color:var(--acc)">./run.sh</pre>
+          <p style="margin-top:20px;color:var(--ink-3);font-size:15px">玻璃能点：戳泡泡会洇出一句玩法提示，点鱼会吐泡。</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+<script>
+Aquarium.boot(function () {
+  var fish = {
+    0: ['blue_tang','clownfish','butterfly','angelfish','clownfish','angelfish','butterfly','clownfish'],
+    1: ['guppy','neon','neon','discus','guppy','neon'],
+    2: ['lantern','lantern','jelly','angler','jelly']
+  };
+  Reef.tank(document.querySelector('[data-tank="long"]'), [0,1,2], fish, { px: 130, tall: true, natural: true });
+  document.querySelectorAll('.btn, .gauge nav a, .station img').forEach(function (b) { Reef.bubbly(b, 4); });
+});
+</script>
+</body>
+</html>

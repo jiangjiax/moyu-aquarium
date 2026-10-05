@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>摸鱼水族馆 · 挂在桌边的一整座水族馆</title>
+<meta name="description" content="一个挂在电脑桌面底边的放置水族馆。Godot 4.7 + GDScript，像素素材由 Python 脚本生成。横向一条长缸切三段：珊瑚礁区、淡水草缸区、深海区。">
+<meta property="og:title" content="摸鱼水族馆">
+<meta property="og:description" content="挂在桌边的一整座水族馆。鱼自己游、自己攒金币。">
+<meta property="og:image" content="assets/shots/expand.png">
+<meta name="theme-color" content="#080b12">
+<link rel="icon" href="assets/icon/app.png">
+<link rel="preload" as="image" href="assets/shots/expand.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#zones">跳到正文</a>
+
+<!-- ══════════════════════════════ 导航：一行，左标 中链 右空，链接真正居中 ══════════════════════════════ -->
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <img src="assets/icon/app.png" alt="" width="32" height="32">
+      <span>摸鱼水族馆</span>
+    </a>
+    <nav class="links" aria-label="主导航">
+      <a href="#forms">两种形态</a>
+      <a href="#zones">三座馆</a>
+      <a href="#roster">鱼与钱</a>
+      <a href="#pipeline">素材管线</a>
+      <a href="#roadmap">里程碑</a>
+    </nav>
+    <span class="nav-tail" aria-hidden="true"></span>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════ HERO ══════════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <p class="kicker rise d1">Godot 4.7 桌面挂件</p>
+    <h1 class="rise d2">挂在桌边的一整座水族馆</h1>
+    <p class="lede rise d3">鱼自己游、自己攒金币、自己生小鱼。上班时它是屏幕底下的一扇窗，想玩的时候点一下展开。</p>
+    <div class="cta-row rise d4">
+      <a class="btn btn-pri" href="#zones">看三座馆</a>
+      <a class="btn btn-ghost" href="#run">本地跑起来</a>
+    </div>
+
+    <figure class="hero-tank rise d5">
+      <div class="tank-shell" data-tank="hero">
+        <canvas class="tank" id="tank-hero" aria-label="珊瑚礁区实时预览，点水面可以撒饵料"></canvas>
+        <div class="tank-hud">
+          <span class="px hud-wallet"><img src="assets/icon/coin.png" alt="" width="11" height="11"><b data-wallet>0</b></span>
+          <span class="px hud-boost" data-boost hidden>产币翻倍 <b data-boost-t>2:00</b></span>
+        </div>
+        <span class="tank-hint px">点水面撒饵</span>
+      </div>
+      <figcaption class="px">这就是挂件形态的实时画面。鱼是项目里那批鱼图，程序在浏览器里跑，没有录屏。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 两种形态：粘性堆叠，每张卡居中 ══════════════════════════════ -->
+<section class="sec forms" id="forms">
+  <div class="wrap">
+    <div class="sec-head sec-head-center">
+      <h2>两种形态，同一座馆</h2>
+      <p>平时它缩成一条细长的观景窗，贴在屏幕底边。想玩的时候才铺开。位置不变，镜头的落点也不变。</p>
+    </div>
+  </div>
+
+  <div class="stack" id="stack">
+    <article class="stack-card">
+      <div class="wrap stack-in">
+        <p class="stack-n px">挂件形态</p>
+        <h3>一条细长的观景窗</h3>
+        <p class="stack-p">整个窗口透明，缸画在一块圆角矩形里，四角外能看见桌面。除了左上角那个突出的圆角小挂耳，其余部分点击穿透，鼠标移上来会变淡。</p>
+        <img class="shot" src="assets/shots/widget.png" alt="挂件形态实机截图，一条横向的像素水族馆贴在屏幕底边" loading="lazy" width="2865" height="239">
+      </div>
+    </article>
+
+    <article class="stack-card">
+      <div class="wrap stack-in">
+        <p class="stack-n px">展开形态</p>
+        <h3>大半屏，横向一条长缸</h3>
+        <p class="stack-p">整座馆铺开，左右拖动浏览整条缸。商店页签跟着镜头换区，点页签镜头也会推过去。20 秒没人碰，镜头按馆巡游。</p>
+        <img class="shot" src="assets/shots/expand.png" alt="展开形态实机截图，右侧是商店面板，列出小丑鱼、银汉鱼、蓝倒吊等品种和价格" loading="lazy" width="2865" height="899">
+      </div>
+    </article>
+
+    <article class="stack-card">
+      <div class="wrap stack-in">
+        <p class="stack-n px">收起</p>
+        <h3>一下就回去</h3>
+        <p class="stack-p">收起不留窗口，不弹通知，不出声。进度存在 user://aquarium.json 里，改动时、每 15 秒、退出时各存一次。</p>
+        <dl class="keys">
+          <div><dt class="px">空格</dt><dd>展开 / 收起</dd></div>
+          <div><dt class="px">点金币</dt><dd>收进钱包</dd></div>
+          <div><dt class="px">Esc</dt><dd>收起</dd></div>
+          <div><dt class="px">点水面</dt><dd>撒一粒饵料</dd></div>
+          <div><dt class="px">P</dt><dd>截图到 shots/manual.png</dd></div>
+          <div><dt class="px">拖 / 横滑 / 滚轮</dt><dd>浏览整条缸</dd></div>
+        </dl>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 三座馆：横向长缸，滚动驱动 ══════════════════════════════ -->
+<section class="sec zones" id="zones">
+  <div class="pan" id="pan">
+    <div class="pan-sticky">
+      <div class="pan-track" id="pan-track">
+        <div class="pan-tank">
+          <div class="tank-shell wide" data-tank="pan">
+            <canvas class="tank" id="tank-pan" aria-label="三座馆横向连成一条长缸"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="pan-captions" aria-hidden="true">
+        <div class="pan-cap">
+          <h2>横向一条长缸，切成三段</h2>
+          <p>每段正好一屏宽。三区开局全开，滑过去就到。下面的画面在实时跑，不是截图。</p>
+        </div>
+        <div class="pan-cap"><p class="zname">珊瑚礁区</p><p class="zdesc">亮蓝绿，有阳光光柱。鹿角珊瑚、脑珊瑚、扇珊瑚、海葵。开局自带 8 条。</p></div>
+        <div class="pan-cap"><p class="zname">淡水草缸区</p><p class="zdesc">暖绿，光柱很淡。水草丛生、石头顶上长草，没有珊瑚。开局空着。</p></div>
+        <div class="pan-cap"><p class="zname">深海区</p><p class="zdesc">近黑。光柱和焦散全关，礁石压成冷青，摆得疏。开局空着。</p></div>
+      </div>
+
+      <div class="pan-zones px" aria-hidden="true">
+        <span>珊瑚礁区</span><span>淡水草缸区</span><span>深海区</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pan-fallback" id="pan-fallback" hidden>
+    <div class="pan-cap"><p class="zname">珊瑚礁区</p><p class="zdesc">亮蓝绿，有阳光光柱。鹿角珊瑚、脑珊瑚、扇珊瑚、海葵。开局自带 8 条。</p></div>
+    <div class="pan-cap"><p class="zname">淡水草缸区</p><p class="zdesc">暖绿，光柱很淡。水草丛生、石头顶上长草，没有珊瑚。开局空着。</p></div>
+    <div class="pan-cap"><p class="zname">深海区</p><p class="zdesc">近黑。光柱和焦散全关，礁石压成冷青，摆得疏。开局空着。</p></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 鱼与钱：三列等宽 ══════════════════════════════ -->
+<section class="sec roster" id="roster">
+  <div class="wrap">
+    <div class="sec-head sec-head-center">
+      <h2>十一条鱼，三种价</h2>
+      <p>价格和产币速度都对着 <code>godot/catalog.gd</code> 抄的。每个展区容量 8 条，扩到 12 要 300 乘展区序号，扩到 20 要 1500 乘展区序号。</p>
+    </div>
+
+    <div class="marquee px" aria-hidden="true">
+      <div class="marquee-track">
+        <span>小丑鱼 10</span><span>银汉鱼 20</span><span>蓝倒吊 50</span><span>神仙鱼 200</span><span>蝴蝶鱼 300</span>
+        <span>孔雀鱼 80</span><span>霓虹灯鱼 250</span><span>七彩神仙 800</span>
+        <span>灯笼鱼 400</span><span>水母 1200</span><span>鮟鱇鱼 4000</span>
+      </div>
+    </div>
+
+    <div class="roster-grid">
+      <div class="roster-col">
+        <h3><span>珊瑚礁区</span><em class="px">5 种</em></h3>
+        <ul class="fish-list">
+          <li><img src="assets/species/clownfish.png" alt="小丑鱼" width="28" height="17"><span class="fname">小丑鱼</span><span class="fpx">产币 1.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">10</span></li>
+          <li><img src="assets/species/chromis.png" alt="银汉鱼" width="14" height="9"><span class="fname">银汉鱼</span><span class="fpx">产币 2.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">20</span></li>
+          <li><img src="assets/species/blue_tang.png" alt="蓝倒吊" width="32" height="21"><span class="fname">蓝倒吊</span><span class="fpx">产币 4.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">50</span></li>
+          <li><img src="assets/species/angelfish.png" alt="神仙鱼" width="26" height="32"><span class="fname">神仙鱼</span><span class="fpx">产币 12.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">200</span></li>
+          <li><img src="assets/species/butterfly.png" alt="蝴蝶鱼" width="24" height="22"><span class="fname">蝴蝶鱼</span><span class="fpx">产币 20.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">300</span></li>
+        </ul>
+      </div>
+
+      <div class="roster-col">
+        <h3><span>淡水草缸区</span><em class="px">3 种</em></h3>
+        <ul class="fish-list">
+          <li><img src="assets/species/guppy.png" alt="孔雀鱼" width="14" height="9"><span class="fname">孔雀鱼</span><span class="fpx">产币 5.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">80</span></li>
+          <li><img src="assets/species/neon.png" alt="霓虹灯鱼" width="14" height="9"><span class="fname">霓虹灯鱼</span><span class="fpx">产币 12.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">250</span></li>
+          <li><img src="assets/species/discus.png" alt="七彩神仙" width="24" height="22"><span class="fname">七彩神仙</span><span class="fpx">产币 35.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">800</span></li>
+        </ul>
+        <p class="roster-note">淡水没有珊瑚，所以这一区的鱼图暂时是珊瑚礁那几张改了色。M3 补真图。</p>
+      </div>
+
+      <div class="roster-col">
+        <h3><span>深海区</span><em class="px">3 种</em></h3>
+        <ul class="fish-list">
+          <li><img src="assets/species/lantern.png" alt="灯笼鱼" width="14" height="9"><span class="fname">灯笼鱼</span><span class="fpx">产币 20.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">400</span></li>
+          <li><img src="assets/species/jelly.png" alt="水母" width="24" height="22"><span class="fname">水母</span><span class="fpx">产币 50.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">1200</span></li>
+          <li><img src="assets/species/angler.png" alt="鮟鱇鱼" width="26" height="32"><span class="fname">鮟鱇鱼</span><span class="fpx">产币 150.0</span><span class="fprice"><img src="assets/icon/coin.png" alt="" width="11" height="11">4000</span></li>
+        </ul>
+        <p class="roster-note">深海的光全靠鱼自己亮，所以光柱和焦散都关掉，最贵的一条产币 150。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 投一次饵：2×2 ══════════════════════════════ -->
+<section class="sec feed" id="feed">
+  <div class="wrap">
+    <div class="sec-head sec-head-center">
+      <h2>点一下水面，鱼会自己来</h2>
+      <p>挂件形态不打扰，所以整局的钱都是这么攒的。离线最多按 8 小时结算，打开的时候底部给一行提示。</p>
+    </div>
+
+    <ol class="track">
+      <li class="track-step">
+        <span class="track-n px">01</span>
+        <div class="tank-shell mini" data-tank="mini">
+          <canvas class="tank" id="tank-mini" aria-label="珊瑚礁区实时预览，点水面可以撒饵料"></canvas>
+        </div>
+        <h3>撒饵</h3>
+        <p>点水里任意一竖线，饵料先浮一下，再加速沉到终端速度，边沉边晃，落底停在沙上。</p>
+      </li>
+      <li class="track-step">
+        <span class="track-n px">02</span>
+        <div class="track-fig" aria-hidden="true"><img src="assets/species/blue_tang.png" alt="" width="32" height="21"></div>
+        <h3>抢食</h3>
+        <p>最近的鱼加速游过去吃掉。吃饱之后接下来两分钟产币翻倍。</p>
+      </li>
+      <li class="track-step">
+        <span class="track-n px">03</span>
+        <div class="track-fig" aria-hidden="true"><img src="assets/icon/coin.png" alt="" width="11" height="11" class="big"></div>
+        <h3>产币</h3>
+        <p>金币落到沙上，2.5 秒后自己进钱包。两种形态都一样，不点也会自己收。</p>
+      </li>
+      <li class="track-step">
+        <span class="track-n px">04</span>
+        <div class="track-fig" aria-hidden="true"><img src="assets/species/clownfish.png" alt="" width="28" height="17"></div>
+        <h3>买鱼与扩建</h3>
+        <p>右侧商店买鱼、扩容量。买的鱼从水面扑通跳进来，落在看得见的那截水中间。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 素材管线：3×2 等格 ══════════════════════════════ -->
+<section class="sec pipeline" id="pipeline">
+  <div class="wrap">
+    <div class="sec-head sec-head-center">
+      <p class="kicker">素材管线</p>
+      <h2>像素是脚本画出来的</h2>
+      <p>这个项目里没有一张手画的图。鱼、珊瑚、礁石、沙、远景、玻璃框，全是 <code>tools/</code> 下的 Python 脚本跑出来的。</p>
+    </div>
+
+    <div class="bento">
+      <div class="cell">
+        <h3>一条命令出图</h3>
+        <pre class="code"><code>python3 tools/make_art.py --preview
+cd godot &amp;&amp; godot --headless --import</code></pre>
+        <p>出图到 <code>godot/art/</code>，验收图到 <code>godot/shots/</code>。色带暗部偏冷、亮部偏暖，光照是距离场从左上来，描边只描该描的那一圈。</p>
+      </div>
+
+      <div class="cell cell-water">
+        <h3>全缸只有一套像素网格</h3>
+        <div class="ruler" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p>整缸画在美术分辨率的 SubViewport 里再整数倍放大。Retina 下挂件形态 1 格 = 3 物理像素，展开形态 = 6。界面自己一套倍率，不跟缸走。</p>
+      </div>
+
+      <div class="cell">
+        <h3>四个 shader</h3>
+        <ul class="plain">
+          <li><code>water</code> 色带 + Bayer 抖动 + 斜光柱</li>
+          <li><code>caustics</code> 两层扭曲网格取最小值</li>
+          <li><code>sway</code> 按像素行整格平移</li>
+          <li><code>round</code> 按 SDF 把整块缸裁成圆角</li>
+        </ul>
+        <p class="dim">摇摆走 shader 是因为旋转会把像素拧斜，整格平移网格永远是正的。</p>
+      </div>
+
+      <div class="cell cell-shot">
+        <h3>看管线出的验收图</h3>
+        <img src="assets/shots/fish_preview.png" alt="Python 管线生成的鱼图验收图，五种鱼各四帧摆尾" loading="lazy" width="2336" height="320">
+        <p class="dim">五种鱼，每种四帧摆尾自动生成。摆尾帧是脚本按轮廓和花纹推的，不是一张张画的。</p>
+      </div>
+
+      <div class="cell cell-save">
+        <h3>存档就是一张 json</h3>
+        <pre class="code"><code>user://aquarium.json
+  钱包 / 每区容量
+  每条鱼：品种 / 展区 / 位置</code></pre>
+        <p>改动时、每 15 秒、退出时各存一次。离线最多按 8 小时结算。数值只集中在 <code>catalog.gd</code> 一个文件里，调价只动它。</p>
+      </div>
+
+      <div class="cell cell-font">
+        <h3>界面用的字也是像素</h3>
+        <p class="font-spec px">摸鱼水族馆 0123</p>
+        <p>缝合像素体 12px 简中，站上所有标题、标签、数字都是它，按 12 的整数倍放大。这一页的正文用系统无衬线，因为一整屏像素字读起来累。</p>
+        <p class="dim">采用 SIL Open Font License 1.1，许可证随字体文件一起放在项目里。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 里程碑：四列等宽时间轴 ══════════════════════════════ -->
+<section class="sec roadmap" id="roadmap">
+  <div class="wrap">
+    <div class="sec-head sec-head-center">
+      <h2>四个里程碑</h2>
+      <p>每个里程碑的验收都只靠 <code>./run.sh</code>。所以画新素材单独占一个，不塞进玩法里程碑里。</p>
+    </div>
+
+    <ol class="miles">
+      <li class="mile is-done">
+        <span class="mile-node" aria-hidden="true"></span>
+        <span class="mile-tag px">完成</span>
+        <h3>三座馆</h3>
+        <p>缸切成三区 + 三种风格 + 镜头巡游。只用现有素材，零新美术。</p>
+      </li>
+      <li class="mile is-done">
+        <span class="mile-node" aria-hidden="true"></span>
+        <span class="mile-tag px">完成</span>
+        <h3>钱</h3>
+        <p>存档、被动产币、买鱼、点水面投食、点金币收起来、扩建容量。</p>
+      </li>
+      <li class="mile is-doing">
+        <span class="mile-node" aria-hidden="true"></span>
+        <span class="mile-tag px">进行中</span>
+        <h3>素材</h3>
+        <p>淡水区、深海区真正的鱼种和布景。这一轮的验收命令和别的里程碑不一样。</p>
+      </li>
+      <li class="mile">
+        <span class="mile-node" aria-hidden="true"></span>
+        <span class="mile-tag px">待做</span>
+        <h3>生态</h3>
+        <p>配对下蛋孵化（基因混色 + 稀有突变）、离线结算框、图鉴、时间加速键、幼鱼成长。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ 跑起来：居中一列 ══════════════════════════════ -->
+<section class="sec run" id="run">
+  <div class="wrap run-in">
+    <h2>跑起来只要一条命令</h2>
+    <p class="lede">前提是本机装了 Godot 4.7。窗口会直接贴在桌面底边，右上角是钱包，左上角那个小挂耳点一下就展开。</p>
+
+    <div class="cmds">
+      <div class="cmd">
+        <span class="cmd-l px">启动</span>
+        <pre class="code"><code>./run.sh</code><i class="caret" aria-hidden="true"></i></pre>
+      </div>
+      <div class="cmd">
+        <span class="cmd-l px">重新出图</span>
+        <pre class="code"><code>python3 tools/make_art.py --preview
+cd godot &amp;&amp; godot --headless --import</code></pre>
+      </div>
+      <div class="cmd">
+        <span class="cmd-l px">自检截图</span>
+        <pre class="code"><code>godot --path . -- --shot=res://shots/out.png --wait=4
+godot --path . -- --shot=res://shots/out.png --mode=expand --wait=5
+godot --path . -- --shot=res://shots/out.png --zone=2 --wait=4</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <p>摸鱼水族馆 · Godot 4.7 + GDScript。站内所有鱼图、珊瑚、礁石、水、沙都是项目 <code>godot/art/</code> 里的原图，页面上的水色、抖动、光柱、焦散、摇摆照抄了游戏里的 shader。</p>
+    </div>
+  </footer>
+</section>
+
+<script src="aquarium.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>概念 D · 剖面图 Cutaway</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+</head>
+<body class="c-d">
+
+<!-- 导航是底部那条工具条 -->
+<div class="toolbar">
+  <a class="brand" href="#top"><img src="../assets/icon/app.png" alt="" width="28" height="28"><span>摸鱼水族馆</span></a>
+  <nav data-nav>
+    <a href="#n1">批注</a>
+    <a href="#n2">规格</a>
+    <a href="#n3">里程碑</a>
+    <a href="#run">命令</a>
+  </nav>
+  <span class="px" style="font-size:12px;color:var(--ink-3)">1 格 = 3 物理像素</span>
+</div>
+
+<main class="sheet" id="top">
+
+  <header class="sheet-head">
+    <p class="kicker">Godot 4.7 桌面挂件</p>
+    <h1>挂在桌边的一整座水族馆</h1>
+    <p class="lede">鱼自己游、自己攒金币、自己生小鱼。下面这张是剖面图，缸是真的在跑，鼠标指到哪条批注，缸里对应那条鱼就被框上。</p>
+    <span class="stamp px"><span>图号 MOYU-01</span><span>比例 1:1</span><span>整缸一套像素网格</span></span>
+  </header>
+
+  <figure class="drawing">
+    <div class="tank-shell" data-tank="d0"><canvas class="tank"></canvas></div>
+    <figcaption class="calib px">
+      <span>0</span><span>水线 0</span><span>中层 0.45H</span><span>沙面 -11</span><span>底座 0</span>
+    </figcaption>
+  </figure>
+
+  <section class="notes" id="n1">
+    <article class="note">
+      <h3><em>01</em>水</h3>
+      <p>色带四档，暗部偏冷、亮部偏暖，叠 Bayer 抖动和斜光柱。珊瑚礁区水面 (0.56, 0.80, 0.79)，深海区最后一档 (0.03, 0.05, 0.12) 当页面底色。</p>
+    </article>
+    <article class="note">
+      <h3><em>02</em>鱼</h3>
+      <p>11 个品种，摇摆帧是脚本按轮廓和花纹推出来的，每种四帧。淡水区和深海区暂时拿珊瑚礁那几张改了色，M3 补真图。</p>
+    </article>
+    <article class="note">
+      <h3><em>03</em>沙与焦散</h3>
+      <p>沙面在美术坐标 y = -11，焦散是两层扭曲网格取最小值。深海区焦散强度为 0，因为那儿没有光。</p>
+    </article>
+    <article class="note">
+      <h3><em>04</em>玻璃与圆角</h3>
+      <p>整个窗口透明，缸画在一块圆角矩形里，四角外能看见桌面。圆角是把玻璃框、水、鱼一起裁的，只裁边框就假了。</p>
+    </article>
+  </section>
+
+  <dl class="spec" id="n2">
+    <div><dt>像素网格</dt><dd>整缸画在美术分辨率的 SubViewport 里再整数倍放大。Retina 下挂件 1 格 = 3 物理像素，展开 = 6。</dd></div>
+    <div><dt>shader</dt><dd>water 色带加抖动，caustics 两层扭曲，sway 按像素行整格平移，round 按 SDF 裁圆角。</dd></div>
+    <div><dt>存档</dt><dd>user://aquarium.json，钱包、每区容量、每条鱼的品种和位置。改动时、每 15 秒、退出时各存一次。</dd></div>
+    <div><dt>数值</dt><dd>只集中在 catalog.gd 一个文件里。容量 8 到 12 要 300 乘展区序号，12 到 20 要 1500 乘。</dd></div>
+  </dl>
+
+  <section class="notes" id="n3" style="margin-top:40px">
+    <article class="note"><h3><em>完成</em>三座馆</h3><p>缸切成三区加三种风格加镜头巡游，只用现有素材，零新美术。</p></article>
+    <article class="note"><h3><em>完成</em>钱</h3><p>存档、被动产币、买鱼、点水面投食、点金币收起来、扩建容量。</p></article>
+    <article class="note"><h3><em>进行中</em>素材</h3><p>淡水区、深海区真正的鱼种和布景。这一轮的验收命令和别的里程碑不一样。</p></article>
+    <article class="note"><h3><em>待做</em>生态</h3><p>配对下蛋孵化，离线结算框，图鉴，时间加速键，幼鱼成长。</p></article>
+  </section>
+
+  <section class="drawing" id="run" style="margin-top:40px;border:0;background:transparent">
+    <div class="calib px" style="box-shadow:none;border:1px solid var(--line-2)"><span>启动</span><span>./run.sh</span></div>
+    <div class="calib px" style="box-shadow:none;border:1px solid var(--line-2);border-top:0"><span>出图</span><span>python3 tools/make_art.py --preview</span></div>
+    <div class="calib px" style="box-shadow:none;border:1px solid var(--line-2);border-top:0"><span>自检</span><span>godot --path . -- --shot=res://shots/out.png --wait=4</span></div>
+    <p style="margin-top:16px;color:var(--ink-3);font-size:15px;text-align:center">缸能点：撒饵、点鱼、戳泡泡。泡泡戳破洇出的是水彩提示。</p>
+  </section>
+
+</main>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+<script>
+Aquarium.boot(function () {
+  var t = Reef.tank(document.querySelector('[data-tank="d0"]'), [0], {
+    0: ['blue_tang','clownfish','butterfly','angelfish','clownfish','angelfish','butterfly','clownfish']
+  }, { px: 80 });
+
+  /* 指针指到一条批注，缸里就抓一条鱼框上：停住，冒一串泡 */
+  document.querySelectorAll('.note').forEach(function (n, i) {
+    n.addEventListener('pointerenter', function () {
+      var f = t.fishes[i % t.fishes.length];
+      if (!f) return;
+      f.sx = f.x; f.sy = f.y;
+      f.behavior = 'graze'; f.stateT = 0;
+      var r = n.getBoundingClientRect();
+      Reef.burst(r.left + r.width / 2, r.top + 24, 4, { sp: 12, r: 3 });
+    });
+  });
+  document.querySelectorAll('.note, .btn, .toolbar nav a').forEach(function (b) { Reef.bubbly(b, 3); });
+});
+</script>
+</body>
+</html>

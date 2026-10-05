@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>概念 B · 展缸格 Cubby</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+</head>
+<body class="c-b">
+
+<!-- 导航是柜子左侧那根竖导轨 -->
+<div class="rail">
+  <a class="brand" href="#top"><img src="../assets/icon/app.png" alt="" width="32" height="32"><span>水族馆</span></a>
+  <nav data-nav>
+    <a href="#c1">形态</a>
+    <a href="#c2">三馆</a>
+    <a href="#c3">鱼钱</a>
+    <a href="#c4">玩法</a>
+    <a href="#c5">管线</a>
+    <a href="#c6">里程碑</a>
+  </nav>
+  <span class="tally">11 种</span>
+</div>
+
+<main class="wrap" id="top" style="padding-bottom:96px">
+
+  <header class="tagline">
+    <p class="kicker">Godot 4.7 桌面挂件</p>
+    <h1>挂在桌边的一整座水族馆</h1>
+    <p class="lede">鱼自己游、自己攒金币、自己生小鱼。下面每一格都是一只真的缸，程序在浏览器里跑，没有录屏。</p>
+    <div class="cta">
+      <a class="btn btn-pri" href="#c1">看三座馆</a>
+      <a class="btn" href="#c4">怎么玩</a>
+    </div>
+  </header>
+
+  <div class="wall">
+
+    <!-- 主缸：横跨三列 -->
+    <section class="cubby is-big" id="c1">
+      <div class="cubby-head"><h3>珊瑚礁区</h3><em class="px">开局 8 条</em></div>
+      <div class="tank-shell" data-tank="k0"><canvas class="tank"></canvas></div>
+    </section>
+
+    <section class="cubby" id="c2">
+      <div class="cubby-head"><h3>淡水草缸区</h3><em class="px">3 种</em></div>
+      <div class="tank-shell" data-tank="k1"><canvas class="tank"></canvas></div>
+      <div class="cubby-body">
+        <p>暖绿，光柱很淡。水草丛生，石头顶上长草，没有珊瑚。</p>
+        <div class="fish-row">
+          <img src="../assets/species/guppy.png" alt="孔雀鱼" width="32" height="24">
+          <img src="../assets/species/neon.png" alt="霓虹灯鱼" width="32" height="24">
+          <img src="../assets/species/discus.png" alt="七彩神仙" width="32" height="24">
+        </div>
+      </div>
+    </section>
+
+    <section class="cubby" id="c3">
+      <div class="cubby-head"><h3>深海区</h3><em class="px">3 种</em></div>
+      <div class="tank-shell" data-tank="k2"><canvas class="tank"></canvas></div>
+      <div class="cubby-body">
+        <p>近黑。光柱和焦散全关，礁石压成冷青，摆得疏。</p>
+        <div class="fish-row">
+          <img src="../assets/species/lantern.png" alt="灯笼鱼" width="32" height="24">
+          <img src="../assets/species/jelly.png" alt="水母" width="32" height="24">
+          <img src="../assets/species/angler.png" alt="鮟鱇鱼" width="32" height="24">
+        </div>
+      </div>
+    </section>
+
+    <section class="cubby" id="c4">
+      <div class="cubby-head"><h3>投一次饵</h3><em class="px">可点</em></div>
+      <div class="tank-shell" data-tank="k3"><canvas class="tank"></canvas></div>
+      <div class="cubby-body">
+        <p>点水里任意一竖线，饵料先浮一下再沉底。鱼吃饱之后两分钟产币翻倍。</p>
+        <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+          <div><dt>点水面</dt><dd>撒饵</dd></div>
+          <div><dt>点金币</dt><dd>收进钱包</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="cubby" id="c7">
+      <div class="cubby-head"><h3>十一条鱼，三种价</h3><em class="px">抄 catalog.gd</em></div>
+      <div class="tank-shell" data-tank="k6"><canvas class="tank"></canvas></div>
+      <div class="cubby-body">
+        <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+          <div><dt>小丑鱼</dt><dd>产币 1.0 / 10</dd></div>
+          <div><dt>神仙鱼</dt><dd>产币 12.0 / 200</dd></div>
+          <div><dt>鮟鱇鱼</dt><dd>产币 150.0 / 4000</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="cubby" id="c5">
+      <div class="cubby-head"><h3>素材管线</h3><em class="px">Python</em></div>
+      <div class="tank-shell" data-tank="k4"><canvas class="tank"></canvas></div>
+      <div class="cubby-body">
+        <p>项目里没有一张手画的图。鱼、珊瑚、礁石、沙全是脚本跑出来的。</p>
+        <pre class="code" style="font-family:var(--f-mono);font-size:12px;line-height:1.7;margin:0;color:var(--acc);background:var(--deep);border:1px solid var(--line-2);padding:12px">python3 tools/make_art.py --preview</pre>
+      </div>
+    </section>
+
+    <section class="cubby" id="c6">
+      <div class="cubby-head"><h3>里程碑</h3><em class="px">2 / 4</em></div>
+      <div class="tank-shell" data-tank="k5"><canvas class="tank"></canvas></div>
+      <div class="cubby-body">
+        <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+          <div><dt>完成</dt><dd>三座馆</dd></div>
+          <div><dt>完成</dt><dd>钱</dd></div>
+          <div><dt>进行中</dt><dd>素材</dd></div>
+          <div><dt>待做</dt><dd>生态</dd></div>
+        </dl>
+      </div>
+    </section>
+
+  </div>
+
+  <p style="margin-top:32px;color:var(--ink-3);font-size:15px;text-align:center">
+    每只缸里都能点：撒饵、点鱼、戳泡泡。泡泡戳破会洇出一句玩法提示。
+  </p>
+</main>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+<script>
+var REEF = ['blue_tang','clownfish','butterfly','angelfish','clownfish','angelfish','butterfly','clownfish'];
+Aquarium.boot(function () {
+  Reef.tank(document.querySelector('[data-tank="k0"]'), [0], { 0: REEF }, { px: 90 });
+  Reef.tank(document.querySelector('[data-tank="k1"]'), [1], { 0: ['guppy','neon','neon','discus'] }, { px: 90 });
+  Reef.tank(document.querySelector('[data-tank="k2"]'), [2], { 0: ['lantern','lantern','jelly','angler'] }, { px: 90 });
+  Reef.tank(document.querySelector('[data-tank="k3"]'), [0], { 0: ['clownfish','butterfly','blue_tang'] }, { px: 80 });
+  Reef.tank(document.querySelector('[data-tank="k4"]'), [1], { 0: ['neon','guppy','neon'] }, { px: 80 });
+  Reef.tank(document.querySelector('[data-tank="k5"]'), [2], { 0: ['jelly','lantern','angler'] }, { px: 80 });
+  Reef.tank(document.querySelector('[data-tank="k6"]'), [0], { 0: ['butterfly','clownfish','blue_tang'] }, { px: 80 });
+
+  /* 悬停一格，格里的鱼集体转向：给 pointer 一个落点，让鱼追一下 */
+  document.querySelectorAll('.cubby').forEach(function (box) {
+    var cv = box.querySelector('canvas');
+    box.addEventListener('pointerenter', function () {
+      var t = Reef.tanks.filter(function (x) { return x.cv === cv; })[0];
+      if (!t) return;
+      t.fishes.forEach(function (f) { f.behavior = 'follow'; f.stateT = 0; });
+    });
+    box.addEventListener('pointerleave', function () {
+      var t = Reef.tanks.filter(function (x) { return x.cv === cv; })[0];
+      if (!t) return;
+      t.fishes.forEach(function (f) { f.behavior = 'roam'; f.stateT = 0; });
+    });
+  });
+  document.querySelectorAll('.btn, .rail nav a, .fish-row img').forEach(function (b) { Reef.bubbly(b, 4); });
+});
+</script>
+</body>
+</html>

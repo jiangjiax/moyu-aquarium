@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>概念 F · 融合版 沙台玻璃墙</title>
+<link rel="icon" href="../assets/icon/app.png">
+<link rel="stylesheet" href="reef.css">
+<style>
+  /* 融合：A 的骨架（整页一缸水 + 沙台 + 底部导航）
+        × B 的墙（三列玻璃格，每格一只真的缸）
+     沙台是柜子的底板，玻璃格就摆在底板上。 */
+  .c-f .terrace-in { padding: 0; gap: 0; justify-items: stretch; background: rgba(8, 20, 28, 0.9); }
+  .c-f .terrace-head { padding: clamp(20px, 2.4vw, 32px); display: grid; justify-items: center; gap: 12px; text-align: center; }
+  .c-f .terrace-head h2 { margin: 0; }
+  .c-f .terrace-head .lede { text-align: center; }
+  .c-f .wall { background: var(--line-2); border: 0; }
+  .c-f .cubby { background: rgba(8, 20, 28, 0.9); }
+  .c-f .cubby .tank-shell { aspect-ratio: 16/8; }
+  .c-f .cubby.is-big .tank-shell { aspect-ratio: 32/6; }
+  .c-f .cta { margin-top: 4px; }
+  .c-f .terrace-title h1 { margin-bottom: 16px; }
+  .c-f .sandbar .count { font-family: var(--f-disp); font-size: 12px; color: var(--acc); }
+</style>
+</head>
+<body class="c-a c-f">
+
+<!-- 整页一缸水（A） -->
+<div class="reef-bg"><div class="tank-shell flush" data-tank="bg"><canvas class="tank"></canvas></div></div>
+
+<!-- 导航在下面，缸底那条沙缘（A） -->
+<div class="sandbar">
+  <div class="sandbar-in">
+    <a class="brand" href="#top"><img src="../assets/icon/app.png" alt="" width="28" height="28"><span>摸鱼水族馆</span></a>
+    <nav data-nav>
+      <a href="#f1">形态</a>
+      <a href="#f2">三座馆</a>
+      <a href="#f3">鱼与钱</a>
+      <a href="#f4">玩法</a>
+    </nav>
+    <span class="count">11 只缸在跑</span>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- 沙台一：主缸横跨三列 -->
+  <section class="terrace" data-terrace id="f1">
+    <div class="wrap terrace-in">
+      <div class="terrace-head terrace-title">
+        <p class="kicker">Godot 4.7 桌面挂件</p>
+        <h1>挂在桌边的一整座水族馆</h1>
+        <p class="lede">鱼自己游、自己攒金币、自己生小鱼。下面这些格子每一格都是一只真的缸，程序在浏览器里跑，没有录屏。</p>
+        <div class="cta">
+          <a class="btn btn-pri" href="#f2">看三座馆</a>
+          <a class="btn" href="#f4">怎么玩</a>
+        </div>
+      </div>
+      <div class="wall">
+        <section class="cubby is-big">
+          <div class="cubby-head"><h3>珊瑚礁区</h3><em class="px">开局 8 条</em></div>
+          <div class="tank-shell" data-tank="k0"><canvas class="tank"></canvas></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- 沙台二：三座馆 -->
+  <section class="terrace" data-terrace id="f2">
+    <div class="wrap terrace-in">
+      <div class="terrace-head">
+        <p class="kicker">三座馆</p>
+        <h2>横向一条长缸，切成三段</h2>
+        <p class="lede">每段正好一屏宽，三区开局全开，滑过去就到。</p>
+      </div>
+      <div class="wall">
+        <section class="cubby">
+          <div class="cubby-head"><h3>淡水草缸区</h3><em class="px">3 种</em></div>
+          <div class="tank-shell" data-tank="k1"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <p>暖绿，光柱很淡。水草丛生，石头顶上长草，没有珊瑚。</p>
+            <div class="fish-row">
+              <img src="../assets/species/guppy.png" alt="孔雀鱼" width="32" height="24">
+              <img src="../assets/species/neon.png" alt="霓虹灯鱼" width="32" height="24">
+              <img src="../assets/species/discus.png" alt="七彩神仙" width="32" height="24">
+            </div>
+          </div>
+        </section>
+        <section class="cubby">
+          <div class="cubby-head"><h3>深海区</h3><em class="px">3 种</em></div>
+          <div class="tank-shell" data-tank="k2"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <p>近黑。光柱和焦散全关，礁石压成冷青，摆得疏。</p>
+            <div class="fish-row">
+              <img src="../assets/species/lantern.png" alt="灯笼鱼" width="32" height="24">
+              <img src="../assets/species/jelly.png" alt="水母" width="32" height="24">
+              <img src="../assets/species/angler.png" alt="鮟鱇鱼" width="32" height="24">
+            </div>
+          </div>
+        </section>
+        <section class="cubby">
+          <div class="cubby-head"><h3>两种形态</h3><em class="px">空格 / Esc</em></div>
+          <div class="tank-shell" data-tank="k3"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <p>平时缩成一条细长观景窗贴在屏幕底边，点挂耳才铺开。收起不出声。</p>
+            <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+              <div><dt>空格</dt><dd>展开 / 收起</dd></div>
+              <div><dt>拖 / 横滑</dt><dd>浏览整条缸</dd></div>
+            </dl>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- 沙台三：鱼与钱 -->
+  <section class="terrace" data-terrace id="f3">
+    <div class="wrap terrace-in">
+      <div class="terrace-head">
+        <p class="kicker">鱼与钱</p>
+        <h2>十一条鱼，三种价</h2>
+        <p class="lede">价格和产币速度都对着 godot/catalog.gd 抄的。每区容量 8 条起步。</p>
+      </div>
+      <div class="wall">
+        <section class="cubby">
+          <div class="cubby-head"><h3>珊瑚礁区</h3><em class="px">5 种</em></div>
+          <div class="tank-shell" data-tank="k4"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+              <div><dt>小丑鱼</dt><dd>产币 1.0 / 10</dd></div>
+              <div><dt>蓝倒吊</dt><dd>产币 4.0 / 50</dd></div>
+              <div><dt>神仙鱼</dt><dd>产币 12.0 / 200</dd></div>
+            </dl>
+          </div>
+        </section>
+        <section class="cubby">
+          <div class="cubby-head"><h3>淡水与深海</h3><em class="px">6 种</em></div>
+          <div class="tank-shell" data-tank="k5"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+              <div><dt>七彩神仙</dt><dd>产币 35.0 / 800</dd></div>
+              <div><dt>水母</dt><dd>产币 50.0 / 1200</dd></div>
+              <div><dt>鮟鱇鱼</dt><dd>产币 150.0 / 4000</dd></div>
+            </dl>
+          </div>
+        </section>
+        <section class="cubby">
+          <div class="cubby-head"><h3>扩建</h3><em class="px">300 / 1500</em></div>
+          <div class="tank-shell" data-tank="k6"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <p>容量 8 扩到 12 要 300 乘展区序号，12 扩到 20 要 1500 乘。买的鱼从水面扑通跳进来。</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- 沙台四：玩法 -->
+  <section class="terrace" data-terrace id="f4">
+    <div class="wrap terrace-in">
+      <div class="terrace-head">
+        <p class="kicker">玩法</p>
+        <h2>点一下水面，鱼会自己来</h2>
+        <p class="lede">挂件形态不打扰，所以整局的钱都是撒饵撒出来的。</p>
+      </div>
+      <div class="wall">
+        <section class="cubby">
+          <div class="cubby-head"><h3>撒饵</h3><em class="px">可点</em></div>
+          <div class="tank-shell" data-tank="k7"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <p>点水里任意一竖线，饵料先浮一下再沉底。鱼吃饱之后两分钟产币翻倍。</p>
+          </div>
+        </section>
+        <section class="cubby">
+          <div class="cubby-head"><h3>泡泡</h3><em class="px">可戳</em></div>
+          <div class="tank-shell" data-tank="k8"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <p>鱼会自己吐泡，沙底也会冒。戳破一朵，会洇出一句玩法提示。</p>
+          </div>
+        </section>
+        <section class="cubby">
+          <div class="cubby-head"><h3>里程碑</h3><em class="px">2 / 4</em></div>
+          <div class="tank-shell" data-tank="k9"><canvas class="tank"></canvas></div>
+          <div class="cubby-body">
+            <dl class="keys" style="grid-template-columns:minmax(0,1fr);gap:8px">
+              <div><dt>完成</dt><dd>三座馆 / 钱</dd></div>
+              <div><dt>进行中</dt><dd>素材</dd></div>
+              <div><dt>待做</dt><dd>生态</dd></div>
+            </dl>
+          </div>
+        </section>
+      </div>
+      <p class="px" style="text-align:center;color:var(--ink-3);font-size:12px;padding:20px">
+        随便点一只缸：撒饵、点鱼、戳泡泡都算数
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<script>window.AQUARIUM_ART = "../assets/art/";</script>
+<script src="../aquarium.js"></script>
+<script src="reef.js"></script>
+<script>
+var REEF = ['blue_tang','clownfish','butterfly','angelfish','clownfish','angelfish','butterfly','clownfish'];
+Aquarium.boot(function () {
+  /* 整页那一只，永远可见 */
+  Reef.tank(document.querySelector('[data-tank="bg"]'), [0], { 0: REEF }, { scale: 5, tall: true, always: true });
+
+  var tanks = [
+    ['k0', [0], { 0: REEF }, 90],
+    ['k1', [1], { 0: ['guppy','neon','neon','discus'] }, 90],
+    ['k2', [2], { 0: ['lantern','lantern','jelly','angler'] }, 90],
+    ['k3', [0], { 0: ['clownfish','butterfly','angelfish'] }, 84],
+    ['k4', [0], { 0: ['butterfly','clownfish','blue_tang'] }, 84],
+    ['k5', [2], { 0: ['jelly','lantern','angler'] }, 84],
+    ['k6', [1], { 0: ['neon','guppy','neon'] }, 84],
+    ['k7', [0], { 0: ['clownfish','butterfly','blue_tang'] }, 84],
+    ['k8', [1], { 0: ['guppy','neon','discus'] }, 84],
+    ['k9', [2], { 0: ['lantern','jelly'] }, 84]
+  ];
+  tanks.forEach(function (t) {
+    Reef.tank(document.querySelector('[data-tank="' + t[0] + '"]'), t[1], t[2], { px: t[3] });
+  });
+
+  /* 悬停一格，格里的鱼集体转向 */
+  document.querySelectorAll('.cubby').forEach(function (box) {
+    var cv = box.querySelector('canvas');
+    var get = function () { return Reef.tanks.filter(function (x) { return x.cv === cv; })[0]; };
+    box.addEventListener('pointerenter', function () {
+      var t = get(); if (!t) return;
+      t.fishes.forEach(function (f) { f.behavior = 'follow'; f.stateT = 0; });
+    });
+    box.addEventListener('pointerleave', function () {
+      var t = get(); if (!t) return;
+      t.fishes.forEach(function (f) { f.behavior = 'roam'; f.stateT = 0; });
+    });
+  });
+
+  /* 切一节：台沿冒一串泡，沙底也跟一口 */
+  Reef.sections('[data-terrace]', function (el) {
+    var r = el.getBoundingClientRect();
+    var n = 9;
+    for (var i = 0; i < n; i++) {
+      Reef.burst(r.left + 40 + (r.width - 80) * (i / (n - 1)), r.top + 6, 2 + (i % 2), { sp: 9 + Math.random() * 8, r: 3 + (i % 3) });
+    }
+    var t = Reef.tanks[0];
+    if (t) for (var k = 0; k < 4; k++) {
+      Reef.burst(r.left + r.width * (0.15 + Math.random() * 0.7), r.bottom - 60, 2, { sp: 7, r: 3 });
+    }
+  });
+
+  document.querySelectorAll('.btn, .sandbar nav a, .fish-row img').forEach(function (b) { Reef.bubbly(b, 4); });
+});
+</script>
+</body>
+</html>

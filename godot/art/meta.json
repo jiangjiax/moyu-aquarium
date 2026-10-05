@@ -1,0 +1,145 @@
+{
+ "fish": {
+  "clownfish": {
+   "frames": 4,
+   "w": 28,
+   "h": 17
+  },
+  "blue_tang": {
+   "frames": 4,
+   "w": 32,
+   "h": 21
+  },
+  "angelfish": {
+   "frames": 4,
+   "w": 26,
+   "h": 32
+  },
+  "chromis": {
+   "frames": 4,
+   "w": 14,
+   "h": 9
+  },
+  "butterfly": {
+   "frames": 4,
+   "w": 24,
+   "h": 22
+  }
+ },
+ "decor": {
+  "rock_xl": {
+   "w": 48,
+   "h": 23,
+   "sway": false,
+   "pad": 0
+  },
+  "rock_l": {
+   "w": 36,
+   "h": 17,
+   "sway": false,
+   "pad": 0
+  },
+  "rock_m": {
+   "w": 24,
+   "h": 12,
+   "sway": false,
+   "pad": 0
+  },
+  "rock_s": {
+   "w": 14,
+   "h": 7,
+   "sway": false,
+   "pad": 0
+  },
+  "rock_xs": {
+   "w": 9,
+   "h": 5,
+   "sway": false,
+   "pad": 0
+  },
+  "coral_big": {
+   "w": 34,
+   "h": 41,
+   "sway": false,
+   "pad": 0
+  },
+  "coral_pink": {
+   "w": 24,
+   "h": 31,
+   "sway": false,
+   "pad": 0
+  },
+  "coral_coral": {
+   "w": 20,
+   "h": 25,
+   "sway": false,
+   "pad": 0
+  },
+  "brain": {
+   "w": 22,
+   "h": 12,
+   "sway": false,
+   "pad": 0
+  },
+  "brain_l": {
+   "w": 30,
+   "h": 16,
+   "sway": false,
+   "pad": 0
+  },
+  "fan": {
+   "w": 32,
+   "h": 31,
+   "sway": true,
+   "pad": 3
+  },
+  "fan_s": {
+   "w": 24,
+   "h": 21,
+   "sway": true,
+   "pad": 3
+  },
+  "anemone": {
+   "w": 26,
+   "h": 15,
+   "sway": true,
+   "pad": 3
+  },
+  "kelp_a": {
+   "w": 19,
+   "h": 59,
+   "sway": true,
+   "pad": 3
+  },
+  "kelp_b": {
+   "w": 19,
+   "h": 45,
+   "sway": true,
+   "pad": 3
+  },
+  "grass_a": {
+   "w": 20,
+   "h": 13,
+   "sway": true,
+   "pad": 3
+  },
+  "grass_b": {
+   "w": 17,
+   "h": 10,
+   "sway": true,
+   "pad": 3
+  },
+  "starfish": {
+   "w": 11,
+   "h": 7,
+   "sway": false,
+   "pad": 0
+  },
+  "shell": {
+   "w": 9,
+   "h": 6,
+   "sway": false,
+   "pad": 0
+  }
+ }
+}
